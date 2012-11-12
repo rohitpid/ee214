@@ -47,19 +47,19 @@ CL	vouta		voutb		'CL'
 
 *** nmos
 *** drain gate source bulk mostype w_value l_value
-M1a m1a_out 0 iina vss my_nmos w=2u l=1u
-M1b m1b_out 0 iinb vss my_nmos w=2u l=1u
-M2a m2a_out m1a_out ibias2a vss my_nmos w=2u l=1u
-M2b m2b_out m1b_out ibias2b vss my_nmos w=2u l=1u
-M3a vdd m2a_out vouta vss my_nmos w=2u l=2u
-M3b vdd m2b_out voutb vss my_nmos w=2u l=2u
+M1a m1a_out 0 iina vss nmos114 w=2u l=1u
+M1b m1b_out 0 iinb vss nmos114 w=2u l=1u
+M2a m2a_out m1a_out ibias2a vss nmos114 w=2u l=1u
+M2b m2b_out m1b_out ibias2b vss nmos114 w=2u l=1u
+M3a vdd m2a_out vouta vss nmos114 w=2u l=2u
+M3b vdd m2b_out voutb vss nmos114 w=2u l=2u
 
 *** pmos
 *** drain gate source bulk mostype w_value l_value
-ML1a ml1a_gate ml1a_gate vdd vdd my_pmos w=2u l=1u
-ML1b ml1b_gate ml1b_gate vdd vdd my_pmos w=2u l=1u
-ML2a ml2a_gate ml2a_gate vdd vdd my_pmos w=2u l=1u
-ML2b ml2b_gate ml2b_gate vdd vdd my_pmos w=2u l=1u
+ML1a ml1a_gate ml1a_gate vdd vdd pmos114 w=2u l=1u
+ML1b ml1b_gate ml1b_gate vdd vdd pmos114 w=2u l=1u
+ML2a ml2a_gate ml2a_gate vdd vdd pmos114 w=2u l=1u
+ML2b ml2b_gate ml2b_gate vdd vdd pmos114 w=2u l=1u
 
 *** Your Bias Circuitry here ***
 
