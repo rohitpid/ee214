@@ -47,30 +47,30 @@ CL	vouta		voutb		'CL'
 
 *** nmos
 *** drain gate source bulk mostype w_value l_value
-M1a m1a_out 0 iina vss nmos114 w=2u l=1u
-M1b m1b_out 0 iinb vss nmos114 w=2u l=1u
-M2a m2a_out m1a_out ibias2a vss nmos114 w=2u l=1u
-M2b m2b_out m1b_out ibias2b vss nmos114 w=2u l=1u
-M3a vdd m2a_out vouta vss nmos114 w=2u l=2u
-M3b vdd m2b_out voutb vss nmos114 w=2u l=2u
+M1a m1a_out 0 iina vss nmos114 w=9.6u l=1u
+M1b m1b_out 0 iinb vss nmos114 w=9.6u l=1u
+M2a m2a_out m1a_out ibias2a vss nmos114 w=10u l=1u
+M2b m2b_out m1b_out ibias2b vss nmos114 w=10u l=1u
+M3a vdd m2a_out vouta vss nmos114 w=70u l=1u
+M3b vdd m2b_out voutb vss nmos114 w=70u l=1u
 
 *** pmos
 *** drain gate source bulk mostype w_value l_value
-ML1a ml1a_gate ml1a_gate vdd vdd pmos114 w=2u l=1u
-ML1b ml1b_gate ml1b_gate vdd vdd pmos114 w=2u l=1u
-ML2a ml2a_gate ml2a_gate vdd vdd pmos114 w=2u l=1u
-ML2b ml2b_gate ml2b_gate vdd vdd pmos114 w=2u l=1u
+ML1a ml1a_gate ml1a_gate vdd vdd pmos114 w=19u l=1u
+ML1b ml1b_gate ml1b_gate vdd vdd pmos114 w=19u l=1u
+ML2a ml2a_gate ml2a_gate vdd vdd pmos114 w=21u l=1u
+ML2b ml2b_gate ml2b_gate vdd vdd pmos114 w=21u l=1u
 
 *** Your Bias Circuitry here ***
 
 *** Ideal Sources to be replaced later
-*** +term -term value
-I1a iina vss DC=100u
-I1b iinb vss DC=100u
-I2a ibias2a vss DC=100u
-I2b ibias2b vss DC=100u
-I3a vouta vss DC=100u
-I3b voutb vss DC=100u
+** +term -term value
+I1a iina vss DC=59.4u
+I1b iinb vss DC=59.4u
+I2a ibias2a vss DC=62.8u
+I2b ibias2b vss DC=62.8u
+I3a vouta vss DC=437.8u
+I3b voutb vss DC=437.8u
 
 ** for students enrolled in ee114, you can use the given ideal voltage source
 Vbias_n nbias vss 1.4   *replace --- by your value
