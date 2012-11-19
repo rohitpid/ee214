@@ -7,7 +7,7 @@ Vss = -2.5; % in Volts
 Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
 f3dB_target = 90e6; %in Hz
-P_totl = 2.8e-3; %in Watts
+P_totl = 3e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 200e-15; %F really this is 2*Cout which is required for 1/2 circuit
@@ -39,28 +39,28 @@ L3 = 1e-6;
 LL1 = 1e-6;
 LL2 = 1e-6;
 
-Vov1 = 0.5;
-Vov2 = 0.5;
-Vov3 = 0.5;
-VovL1 = 0.5;
-VovL2 = 0.5;
+Vov1 = 0.3;
+Vov2 = 0.3;
+Vov3 = 0.3;
+VovL1 = 0.3;
 
 %%%%%%%%%%%%%% Optimization Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 ID1_IDtot = 0.3;    % fraction of total current in branch 1
 ID2_IDtot = 0.4;    % fraction of total current in branch 2
-Av2 = 10;           % Gain of 2nd stage
-
+Av1 = 1000;           % Gain of 1st stage
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Dependent Params %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Av2 = Rm / .8 / Av1;% Gain of 2nd stage
 
 feasible_ID = [];
 feasible_W = [];
 minW = 1e-6*[1 1 1 1 1];
 sweep = 1:100;
 
-ID1_IDtot = linspace(.1, .7, 100);
-ID2_IDtot = linspace(.1, .7, 100);
+ID1_IDtot = linspace(.05, .9, 100);
+ID2_IDtot = linspace(.05, .9, 100);
 
 for i = 1 : length(ID1_IDtot)
     for j = 1 : length(ID2_IDtot)
@@ -85,10 +85,13 @@ for i = 1 : length(ID1_IDtot)
         
         %%% Calculations for Tau2
         % ML1
-        gmL1 = 2*ID1/VovL1;
+%         gmL1 = 2*ID1/VovL1;
+        gmL1 = Av1 * ID1 / (Av1 * Vdd - 2 * ID1);
         wL1 = 2*ID1*LL1 / (kp_p*VovL1^2);
         CgsL1 = 2/3*wL1*LL1*Cox;
         CdbL1 = CgsL1*Cdb_Cgs;
+
+        VovL2 = Vov2 * gmL1 * (Vdd - 1/gmL1 * ID1 * Av2) / ID1
         
         % M2
         gm2 = 2*ID2/Vov2;
@@ -125,11 +128,12 @@ for i = 1 : length(ID1_IDtot)
         tau = [tau1 tau2 tau3 tau4];
         
         f3dB = 1/(2*pi) * 1/sum(tau);
+        gain = 1/gmL1 * gm2 / gmL2 * 0.8
         
         IDVec = [ID1 ID2 ID3];
         Wvec = [w1 w2 w3 wL1 wL2];
         
-        if(f3dB > f3dB_target && sum(Wvec > minW) == 5 && sum(IDVec*5) > 2.4e-3)
+        if(f3dB > f3dB_target && sum(Wvec > minW) == 5 && sum(IDVec*5) > 2.4e-3 && gain >= Rm)
             disp('feasible point found');
             feasible_ID = [feasible_ID ; IDVec];
             disp(['i=' num2str(i) ' ' num2str(ID1_IDtot(i)) ' ' num2str(ID1)]);
