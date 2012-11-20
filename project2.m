@@ -10,7 +10,7 @@ f3dB_target = 90e6; %in Hz
 P_totl = 3e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
-Cout = 200e-15; %F really this is 2*Cout which is required for 1/2 circuit
+Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
 Rm = 20e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,17 +39,17 @@ L3 = 1e-6;
 LL1 = 1e-6;
 LL2 = 1e-6;
 
-Vov1 = 0.3;
-Vov2 = 0.3;
-Vov3 = 0.3;
-VovL1 = 0.3;
-VovL2 = 0.3;
+% Vov1 = 0.3;
+% Vov2 = 0.3;
+% Vov3 = 0.3;
+% VovL1 = 0.3;
+% VovL2 = 0.3;
 
 %%%%%%%%%%%%%% Optimization Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-ID1_IDtot = 0.3;    % fraction of total current in branch 1
-ID2_IDtot = 0.4;    % fraction of total current in branch 2
-Av1 = 1000;           % Gain of 1st stage
+%ID1_IDtot = 0.3;    % fraction of total current in branch 1
+%ID2_IDtot = 0.4;    % fraction of total current in branch 2
+%Av1 = 1000;           % Gain of 1st stage
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Dependent Params %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,17 +60,16 @@ feasible_W = [];
 feasible_gain = [];
 feasible_BW = [];
 gbp = [];
-minW = 2e-6*[1 1 1 1 1];
-%sweep = 1:100;
+minW = 1e-6*[1 1 1 2 2];
 
 ID1_IDtot = linspace(.05, .9, 20);
 ID2_IDtot = linspace(.05, .9, 20);
 
-Vov1Vec = linspace(0.15,1.2,10);
-Vov2Vec = linspace(0.15,1.2,10);
-Vov3Vec = linspace(0.15,1.2,10);
-VovL1Vec = linspace(0.15,1.2,10);
-VovL2Vec = linspace(0.15,1.2,10);
+Vov1Vec = linspace(0.15,1.0,12);
+Vov2Vec = linspace(0.15,1.0,12);
+Vov3Vec = linspace(0.15,1.0,12);
+VovL1Vec = linspace(0.15,1.0,12);
+VovL2Vec = linspace(0.15,1.0,15);
 
 for k=1:length(Vov1Vec)
     Vov1 = Vov1Vec(k);
@@ -163,9 +162,10 @@ for k=1:length(Vov1Vec)
                             
                             gain = Av1*Av2*Av3;
                             
+                            
                             IDVec = [ID1 ID2 ID3];
                             Wvec = [w1 w2 w3 wL1 wL2];
-                            if(f3dB > f3dB_target && sum(Wvec > minW) == 5 && gain >= Rm)
+                            if(f3dB > f3dB_target && sum(Wvec > minW) == 5)
                                 disp('feasible point found');
                                 feasible_ID = [feasible_ID ; IDVec];
                                 %disp(['i=' num2str(i) ' ' num2str(ID1_IDtot(i)) ' ' num2str(ID1)]);
@@ -178,6 +178,7 @@ for k=1:length(Vov1Vec)
                                 disp(['BW = ' num2str(f3dB)]);
                                 disp(['IDs are: ' num2str(IDVec) ]);
                                 disp(['Ws are: ' num2str(Wvec) ]);
+                      
                             end
                         end
                     end
