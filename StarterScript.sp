@@ -3,10 +3,10 @@
 * before your submit the netlist.
 **************************************************************
 * The specifications that this script achieves are:
-* 
-* Power  =    mW 
-* Gain   =    K
-* BandWidth =   MHz
+* sunetid = rohitpid, samfok
+* Power  = 2.7895   mW 
+* Gain   = 20.456 K
+* BandWidth = 91.602  MHz
 ***************************************************************
 
 
@@ -46,10 +46,10 @@ CL	vouta		voutb		'CL'
 *** Your Trans-impedance Amplifier here ***
 **nmos***
 *name drain gate source bulk type parameters*
-M1a  node_1a 0 iina vss nmos114 w=19.4u l=1u
-M1b  node_1b 0 iinb vss nmos114 w=19.4u l=1u
-M2a  node_2a node_1a ibias2 vss nmos114 w=11.8u l=1u
-M2b  node_2b node_1b ibias2 vss nmos114 w=11.8u l=1u
+M1a  node_1a 0 iina vss nmos114 w=11.8u l=1u
+M1b  node_1b 0 iinb vss nmos114 w=11.8u l=1u
+M2a  node_2a node_1a ibias2 vss nmos114 w=14.3u l=1u
+M2b  node_2b node_1b ibias2 vss nmos114 w=14.3u l=1u
 M3a  vdd node_2a vouta vss nmos114 w=65.8u l=1u
 M3b  vdd node_2b voutb vss nmos114 w=65.8u l=1u
 
@@ -67,8 +67,8 @@ Mbias1a iina nbias vss vss nmos114 w=2.2u l=2u
 Mbias1b iinb nbias vss vss nmos114 w=2.2u l=2u
 Mbias2a ibias2 nbias vss vss nmos114 w=2.2u l=2u
 Mbias2b ibias2 nbias vss vss nmos114 w=2.2u l=2u
-Mbias3a vouta nbias vss vss nmos114 w=7.6u l=2u
-Mbias3b voutb nbias vss vss nmos114 w=7.6u l=2u
+Mbias3a vouta nbias vss vss nmos114 w=15.6u l=2u
+Mbias3b voutb nbias vss vss nmos114 w=15.6u l=2u
 
 ** for students enrolled in ee114, you can use the given ideal voltage source
 Vbias_n nbias vss 1.5   *replace --- by your value
