@@ -1,4 +1,6 @@
 function gain = gainAudit(gmL1, gm2, gmL2, gm3, gmb3, RL)
+% usage:
+% gainAudit(gmL1, gm2, gmL2, gm3, gmb3, RL);
 
 RL1 = 1 / gmL1
 Av2 = gm2 / gmL2
