@@ -1,4 +1,3 @@
-%% Project design script
 clc; clear;
 %%%%%%%%%%%%%%%%%%%%%%%% Specifications %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -8,10 +7,10 @@ Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
 f3dB_target = 90e6; %in Hz
 P_totl = 1.4e-3; %in Watts
-IDtot = P_totl / (Vdd - Vss)
+IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
-Rm = 20e3; % 20k transresistance small signal
+Rm = 10e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Lmin = 1e-6;    % m
@@ -33,7 +32,7 @@ Cgd_Cgs = 0.25;
 
 Vout = 0;
 Vsb3 = Vout - Vss;
-Vt3 = Vt0 + gamma * (sqrt(2 * phi + Vsb3) - sqrt(2 * phi))
+Vt3 = Vt0 + gamma * (sqrt(2 * phi + Vsb3) - sqrt(2 * phi));
 
 %%%%%%%%%%%%%%%%%%%% Design Choices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 L1 = Lmin;
@@ -56,12 +55,12 @@ xlabel('Id1'); ylabel('Vov1'); title('tau 1');
 % extract parameters
 [min_tau1 min_tau1_row_idx] = min(tau1);
 [min_tau1 min_tau1_col_idx] = min(min_tau1);
-Id1_min_idx = min_tau1_row_idx(min_tau1_col_idx);
-Vov1_min_idx = min_tau1_col_idx;
+min_row = min_tau1_row_idx(min_tau1_col_idx);
+min_col = min_tau1_col_idx;
 
-Id1 = Id1(Id1_min_idx);
-Vov1 = Vov1(Vov1_min_idx);
-tau1 = tau1(Id1_min_idx, Vov1_min_idx);
+Id1 = Id1_mesh(min_row, min_col);
+Vov1 = Vov1_mesh(min_row, min_col);
+tau1 = tau1(min_row, min_col);
 W1 = 2 * Id1 * L1 / (kp_n * Vov1.^2);
 gm1 = 2 * Id1 / Vov1;
 Cgs1 = (tau1 * gm1 - Cin) / 1.33;
@@ -74,25 +73,25 @@ tau3 = 1.33 / 1.2 * 2 / 3 * L3^2 ./ (mu_n * Vov3_mesh) + ...
          1 / 1.2 * Vov3_mesh ./ (2 * Id3_mesh) * Cout; 
 
 % plotting
-figure(2); mesh(Id3_mesh, Vov3_mesh, tau3); 
+figure(3); mesh(Id3_mesh, Vov3_mesh, tau3); 
 xlabel('Id3'); ylabel('Vov3'); title('tau 3');
 
 % extract parameters
 [min_tau3 min_tau3_row_idx] = min(tau3);
 [min_tau3 min_tau3_col_idx] = min(min_tau3);
-Id3_min_idx = min_tau3_row_idx(min_tau3_col_idx);
-Vov3_min_idx = min_tau3_col_idx;
+min_row = min_tau3_row_idx(min_tau3_col_idx);
+min_col = min_tau3_col_idx;
 
-Id3 = Id3(Id3_min_idx)
-Vov3 = Vov3(Vov3_min_idx)
-tau3 = tau3(Id3_min_idx, Vov3_min_idx);
+Id3 = Id3_mesh(min_row, min_col);
+Vov3 = Vov3_mesh(min_row, min_col);
+tau3 = tau3(min_row, min_col);
 W3 = 2 * Id3 * L3 / (kp_n * Vov3^2);
 gm3 = 2 * Id3 / Vov3;
 Cgs3 = (1.2 * tau3 * gm3 - Cout) / 1.33;
 
 VovL2 = 1 - Vov3; 
 Id2 = IDtot - Id1 - Id3;
-gmL2 = 2 * Id2 / VovL2
+gmL2 = 2 * Id2 / VovL2;
 WL2 = 2 * Id2 * LL2 / (kp_p * VovL2^2);
 %%%%%%%%%%%%%% Sweeping Branch 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -107,21 +106,20 @@ tau2 = Rm * gmL2 / .8 * (1 + .25 * (1 + Av2_mesh)) * 2 / 3 * L2^2 ./ (mu_n * Vov
        1.33 * 2 / 3 * LL2^2 / (mu_p * (1 - Vov3));
 
 % plotting
-figure(3); mesh(Av2_mesh, Vov2_mesh, tau2);
+figure(2); mesh(Av2_mesh, Vov2_mesh, tau2);
 xlabel('Av2'); ylabel('Vov2'); title('tau 2');
 
 % extract parameters
 [min_tau2 min_tau2_row_idx] = min(tau2);
 [min_tau2 min_tau2_col_idx] = min(min_tau2);
-Av2_min_idx = min_tau2_row_idx(min_tau2_col_idx);
-Vov2_min_idx = min_tau2_col_idx;
+min_row = min_tau2_row_idx(min_tau2_col_idx);
+min_col = min_tau2_col_idx;
 
-Av2 = Av2(Av2_min_idx);
-Vov2 = Vov2(Vov2_min_idx);
-tau2 = tau2(Av2_min_idx, Vov2_min_idx);
+Av2 = Av2_mesh(min_row, min_col);
+Vov2 = Vov2_mesh(min_row, min_col);
+tau2 = tau2(min_row, min_col);
 W2 = 2 * Id2 * L2 / (kp_n * Vov2^2);
-gm2 = Av2 * gmL2
-gm2 = 2 * Id2 / Vov2
+gm2 = Av2 * gmL2;
 gmL1 = Av2 * .8 / Rm;
 VovL1 = 2 * Id1 / gmL1;
 WL1 = 2 * Id1 * LL1 / (kp_p * VovL1^2);
@@ -129,6 +127,9 @@ WL1 = 2 * Id1 * LL1 / (kp_p * VovL1^2);
 Vov = [Vov1 Vov2 Vov3]
 VovL = [VovL1 VovL2]
 tau = [tau1 tau2 tau3]
-W = [W1 W2 W3]
-WL = [WL1 WL2]
-Id = [Id1 Id2 Id3]
+Av2
+W = [W1 W2 W3] * 1E6 % um
+WL = [WL1 WL2] * 1E6 % um
+Id = [Id1 Id2 Id3] * 1e6 % uA
+est_f3dB = 1 / (2 * pi * sum(tau))
+est_Rm = 1 / gmL1 * Av2 * 0.8
