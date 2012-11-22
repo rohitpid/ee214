@@ -10,10 +10,11 @@ P_totl = 1.4e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
-Rm = 10e3; % 20k transresistance small signal
+Rm = 11e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Lmin = 1e-6;    % m
+Wmin = 2e-6;    % m
 Cox = 2.3e-3;   % F/m^2
 kp_n = 50e-6;   % A/V^2
 kp_p = 25e-6;   % A/V^2
@@ -44,7 +45,7 @@ LL1 = Lmin;
 LL2 = Lmin;
 
 %%%%%%%%%%%%%% Initialize Space %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-n = 10;
+n = 20;
 Id1_space = linspace(15E-6, 75E-6, n);
 Vov1_space = linspace(.15, 1, n);
 Id3_space = linspace(75E-6, 200E-6, n);
@@ -114,7 +115,11 @@ for Id1_idx = 1 : length(Id1_space)
                         tau = [tau1 tau2 tau3];
                         est_f3dB = 1 / (2 * pi * sum(tau));
                         est_Rm = 1 / gmL1 * Av2 * 0.8;
-                        if est_f3dB >= f3dB_target && est_Rm >= Rm
+                        Widths = [W1 W2 W3 WL1 WL2 Wbias1 Wbias2 Wbias3];
+                        ValidCircuit = est_f3dB >= f3dB_target && ...
+                                       est_Rm >= Rm && ...
+                                       sum(Widths >= Wmin) == 8;
+                        if ValidCircuit
                             valid_Rm = [valid_Rm ; est_Rm];
                             valid_f3dB = [valid_f3dB; est_f3dB];
                             valid_W = [valid_W ; [W1 W2 W3]];
@@ -129,7 +134,17 @@ for Id1_idx = 1 : length(Id1_space)
                             Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
                             f3dB_max = est_f3dB
                             Rm_max = est_Rm
-                            disp('--------------------------------------');
+                            if ValidCircuit
+                                valid_W_max = [W1 W2 W3] * 1e6
+                                valid_WL_max = [WL1 WL2] * 1e6
+                                valid_Id_max = [Id1 Id2 Id3] * 1e6
+                                valid_Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
+                                valid_f3dB_max = est_f3dB
+                                valid_Rm_max = est_Rm
+                                disp('ValidCicuit---------------------------');
+                            else                                
+                                disp('--------------------------------------');
+                            end
                         end
                     end
                 end

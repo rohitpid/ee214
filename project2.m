@@ -6,12 +6,12 @@ Vdd = 2.5; % in volts
 Vss = -2.5; % in Volts
 Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
-f3dB_target = 90e6; %in Hz
-P_totl = 3e-3; %in Watts
+f3dB_target = 55e6; %in Hz
+P_totl = 1.5e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
-Rm = 20e3; % 20k transresistance small signal
+Rm = 18e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Lmin = 1e-6;    % m
@@ -26,7 +26,7 @@ Cgd_Cgs = 0.25;
 %%%%%%%%%%%%%%%%%%%% Design Choices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %How much tau we give to each stage of the circuit
-Tau = Tau_total*[0.25 0.25 0.25 0.25];
+%Tau = Tau_total*[0.25 0.25 0.25 0.25];
 
 % x1 = Cgs1/Cin
 % x2 = Cgs2/Cgs1
@@ -60,16 +60,18 @@ feasible_W = [];
 feasible_gain = [];
 feasible_BW = [];
 gbp = [];
-minW = 1e-6*[1 1 1 2 2];
+minW = 1e-6*[2 2 2 2 2 2 2 2];
 
-ID1_IDtot = linspace(.05, .9, 20);
-ID2_IDtot = linspace(.05, .9, 20);
-
-Vov1Vec = linspace(0.15,1.0,12);
-Vov2Vec = linspace(0.15,1.0,12);
-Vov3Vec = linspace(0.15,1.0,12);
-VovL1Vec = linspace(0.15,1.0,12);
-VovL2Vec = linspace(0.15,1.0,15);
+ID1_IDtot = linspace(.001, .5, 20);
+ID2_IDtot = linspace(.001, .5, 20);
+VovBias1 = 1;
+VovBias2 = 1;
+VovBias3 = 1;
+Vov1Vec = linspace(0.15,1,10);
+Vov2Vec = linspace(0.15,1,10);
+Vov3Vec = linspace(0.15,1,10);
+VovL1Vec = linspace(0.15,1,10);
+VovL2Vec = linspace(0.15,1,10);
 
 for k=1:length(Vov1Vec)
     Vov1 = Vov1Vec(k);
@@ -94,7 +96,7 @@ for k=1:length(Vov1Vec)
                             %%%% Calculations for Tau1
                             % M1
                             gm1 = 2*ID1/Vov1;
-                            w1 = 2*ID1*L1 / (kp_n*Vov1^2);
+                            w1 = (2*ID1*L1) / (kp_n*Vov1^2);
                             Cgs1 = 2/3*w1*L1*Cox;
                             Csb1 = Cgs1*Csb_Cgs;
                             Cgd1 = Cgs1*Cgd_Cgs;
@@ -106,7 +108,7 @@ for k=1:length(Vov1Vec)
                             % ML1
                             gmL1 = 2*ID1/VovL1;
                             %        gmL1 = Av1 * ID1 / (Av1 * Vdd - 2 * ID1);
-                            wL1 = 2*ID1*LL1 / (kp_p*VovL1^2);
+                            wL1 = (2*ID1*LL1) / (kp_p*VovL1^2);
                             CgsL1 = 2/3*wL1*LL1*Cox;
                             CdbL1 = CgsL1*Cdb_Cgs;
                             
@@ -114,28 +116,27 @@ for k=1:length(Vov1Vec)
                             
                             %ML2
                             gmL2  = 2*ID2/VovL2;
-                            wL2   = 2*ID2*LL2 / (kp_p*VovL2^2);
+                            wL2   = (2*ID2*LL2) / (kp_p*VovL2^2);
                             CgsL2 = 2/3*wL2*LL2*Cox;
                             CdbL2 = CgsL2*Cdb_Cgs;
                             
                             % M2
                             gm2 = 2*ID2/Vov2;
-                            w2 = 2*ID2*L2 / (kp_n*Vov2^2);
+                            w2 = (2*ID2*L2) / (kp_n*Vov2^2);
                             Cgs2 = 2/3*w2*L2*Cox;
                             Csb2 = Cgs2*Csb_Cgs;
                             Cgd2 = Cgs2*Cgd_Cgs;
                             Cdb2 = Cgs2*Cdb_Cgs;
                             
-                            %tau2 =
-                            %(1/gmL1)*(Cgd1+Cdb1+CgsL1+Cgs2+CdbL1+Cgd2 + (gm2/gmL2)*Cgd2); % ZVTC
-                            
-                            tau2 = (1/gmL1)*(Cgd1+Cdb1+CgsL1+Cgs2+CdbL1 + (1+gm2/gmL2)*Cgd2); %MIller
+                            %tau2 = (1/gmL1)*(Cgd1+Cdb1+CgsL1+Cgs2+CdbL1+Cgd2 + (gm2/gmL2)*Cgd2); % ZVTC
+                            tau2 = (1/gmL1)*(Cgd1+Cdb1+CgsL1+Cgs2+CdbL1 + Cgd2+ (gm2/gmL2)*Cgd2);
+                            %tau2 = (1/gmL1)*(Cgd1+Cdb1+CgsL1+Cgs2+CdbL1 + (1+gm2/gmL2)*Cgd2); %MIller
                             
                             %%% Calculations for Tau3
                             
                             % M3
                             gm3  = 2*ID3/Vov3;
-                            w3   = 2*ID3*L3 / (kp_n*Vov3^2);
+                            w3   = (2*ID3*L3) / (kp_n*Vov3^2);
                             Cgs3 = 2/3*w3*L3*Cox;
                             Csb3 = Cgs3*Csb_Cgs;
                             Cgd3 = Cgs3*Cgd_Cgs;
@@ -143,13 +144,14 @@ for k=1:length(Vov1Vec)
                             gmb3 = gm3*0.2;
                             gm3prime = gm3+gmb3;
                             
-                            %tau3 = (1/gmL2) * (Cgd2+Cgd3+Cdb2+CgsL2+CdbL2 + (1/(1+(gm3/gmb3)))*Cgs3); ZVTC 
-                            tau3 = (1/gmL2) * (Cgd3+Cdb2+CgsL2+CdbL2+(1-0.8)*Cgs3); % Miller
+                            tau3 = (1/gmL2) * (Cgd2+Cgd3+Cdb2+CgsL2+CdbL2 + (1/(1+(gm3/gmb3)))*Cgs3); %ZVTC 
+                            %tau3 = (1/gmL2) * (Cgd3+Cdb2+CgsL2+CdbL2+(1-0.8)*Cgs3); % Miller
                             
                             % Calculations for tau4
                             
                             %tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3+Cgs3); %ZVTC
-                            tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3); %Miller
+                            %tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3); %Miller
+                            tau4 = (1/gm3prime) * (Cout+Csb3+Cgs3); %ZVTC
                             
                             tau = [tau1 tau2 tau3 tau4];
                             
@@ -158,14 +160,21 @@ for k=1:length(Vov1Vec)
                             
                             Av1 = 1/gmL1;
                             Av2 = gm2/gmL2;
-                            Av3 = gm3/(gm3+gmb3);
+                            Av3 = gm3/(gm3prime);
                             
                             gain = Av1*Av2*Av3;
                             
+                            %if(ID3>270e-6)
+                                %disp('ID3 greater than 270');
+                            %end
+                            
+                            wbias1 = 2*ID1*Lmin/(kp_n*(VovBias1^2));
+                            wbias2 = 2*ID2*Lmin/(kp_n*(VovBias2^2));
+                            wbias3 = 2*ID3*Lmin/(kp_n*(VovBias3^2));
                             
                             IDVec = [ID1 ID2 ID3];
-                            Wvec = [w1 w2 w3 wL1 wL2];
-                            if(f3dB > f3dB_target && sum(Wvec > minW) == 5)
+                            Wvec = [w1 w2 w3 wL1 wL2 wbias1 wbias2 wbias3];
+                            if(f3dB > f3dB_target && sum(Wvec > minW) == 8 && gain >= Rm)
                                 disp('feasible point found');
                                 feasible_ID = [feasible_ID ; IDVec];
                                 %disp(['i=' num2str(i) ' ' num2str(ID1_IDtot(i)) ' ' num2str(ID1)]);
@@ -189,3 +198,12 @@ for k=1:length(Vov1Vec)
 end
 
 [maxgbp mgbpidx] = max(gbp)
+
+
+VovBias1 = 1;
+VovBias2 = 1;
+VovBias3 = 1;
+
+Wbias1 = 2*ID1*Lmin/(kp_n*(VovBias1^2));
+Wbias2 = 2*ID2*Lmin/(kp_n*(VovBias2^2));
+Wbias3 = 2*ID3*Lmin/(kp_n*(VovBias3^2));
