@@ -4,7 +4,7 @@
 **************************************************************
 * The specifications that this script achieves are:
 * sunetid = rohitpid, samfok
-* Power  = 2.7895   mW 
+* Power  = 2.9985 mW 
 * Gain   = 20.456 K
 * BandWidth = 91.602  MHz
 ***************************************************************
@@ -26,12 +26,12 @@ vss vss 0 -2.5
 * Defining the input current source
 
 ** For ac simulation uncomment the following 2 lines**
- Iina		iina	vdd	ac	0.5	
- Iinb		vdd	iinb	ac	0.5	
+* Iina		iina	vdd	ac	0.5	
+* Iinb		vdd	iinb	ac	0.5	
 
 ** For transient simulation uncomment the following 2 lines**
-*Iina		iina	vdd	sin(0 0.5u 1e6)
-*Iinb		vdd	iinb	sin(0 0.5u 1e6)
+Iina		iina	vdd	sin(0 0.5u 1e6)
+Iinb		vdd	iinb	sin(0 0.5u 1e6)
 
 * Defining Input capacitance
 
@@ -71,7 +71,18 @@ Mbias3a vouta nbias vss vss nmos114 w=15.6u l=2u
 Mbias3b voutb nbias vss vss nmos114 w=15.6u l=2u
 
 ** for students enrolled in ee114, you can use the given ideal voltage source
-Vbias_n nbias vss 1.5   *replace --- by your value
+*Vbias_n nbias vss 1.5   *replace --- by your value
+
+*** drain gate source bulk mostype w_value l_value
+*M1 vb vb vdd vdd pmos114 w=2u l=20u
+
+*** nmos
+*** drain gate source bulk mostype w_value l_value
+Mu nbias nbias vx vss nmos114 w=6u l=1u
+Ml vx nbias vss vss nmos114 w=2u l=1u
+
+*Resistors
+R vdd nbias 100k
 
 ** For students enrolled in ee214A, you need to design your bias ciruit. You cannpt use Vbias_n as ideal voltage source.
 
@@ -83,11 +94,11 @@ Vbias_n nbias vss 1.5   *replace --- by your value
 .option post brief nomod
 
 ** For ac simulation uncomment the following line** 
-.ac dec 100 100 10g
+*.ac dec 100 100 10g
 .measure ac gainmax max vdb(vouta)
 .measure ac f3db when vdb(vouta)='gainmax-3'
 
 ** For transient simulation uncomment the following line **
-*.tran 0.01u 4u 
+.tran 0.01u 4u 
 
 .end

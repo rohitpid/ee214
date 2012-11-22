@@ -16,7 +16,7 @@ Mu vb vb vx vss nmos114 w=6u l=1u
 Ml vx vb vss vss nmos114 w=2u l=1u
 
 *Resistors
-R vdd vb 59k
+R vdd vb 100k
 
 * defining the analysis
 
