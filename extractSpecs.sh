@@ -5,17 +5,18 @@ function show_help
 	echo ""
 	echo "-------------------------------------------------------"
 	echo "This program extracts gain, f3dB and power usage from"
-	echo "a spice listing file"
-	echo "Usage: `basename $0` -i FILENAME.lis"
+	echo "a spice file"
+	echo "Usage: `basename $0` -i FILENAME.sp"
 	echo "-------------------------------------------------------"
 	exit $E_BADARGS
 }
 
 function extract
 {
-	cat $FILENAME | grep gainmax
-	cat $FILENAME | grep f3db
-	cat $FILENAME | grep watts
+	hspice $FILENAME > ${FILENAME%.*}.lis
+	cat ${FILENAME%.*}.lis | grep gainmax
+	cat ${FILENAME%.*}.lis | grep f3db
+	cat ${FILENAME%.*}.lis | grep watts
 }
 
 if [ $# == 0 ]
@@ -38,7 +39,7 @@ while [[ $1 == -* ]]; do
       -i) if (($# > 1)); then
             FILENAME=$2; shift 2
           else
-            echo "-i requires an input spice listing file. e.g. file.lis" 1>&2
+            echo "-i requires an input spice file. e.g. file.sp" 1>&2
             exit $E_BADARGS
           fi ;;
       --) shift; break;;
