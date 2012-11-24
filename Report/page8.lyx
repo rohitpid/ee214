@@ -62,6 +62,41 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename TransientSimulation.eps
+	width 10cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Transient Simulation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Page 8: Show a transient simulation plot for each output individually and
  the differential output with a sine 1Mhz, 0.5 µA differential input current.
  Make sure that there is no distortion in any one these waveforms.

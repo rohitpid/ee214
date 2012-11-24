@@ -82,7 +82,7 @@ filename "page1.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Page2.lyx"
+filename "page2.lyx"
 
 \end_inset
 
