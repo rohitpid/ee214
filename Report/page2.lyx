@@ -86,8 +86,13 @@ n).
 
 \end_layout
 
+\begin_layout Section
+Schematic
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -96,7 +101,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename projectSchematic.eps
-	scale 52
+	height 7in
 	rotateAngle 90
 
 \end_inset

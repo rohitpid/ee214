@@ -84,8 +84,23 @@ n! Compare the most relevant hand calculated values with final Spice values
 
 \end_layout
 
+\begin_layout Section
+Design Parameter Calculations
+\end_layout
+
 \begin_layout Subsection*
 Tau Calculations
+\end_layout
+
+\begin_layout Standard
+See section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Appendix"
+
+\end_inset
+
+ for derivation.
 \end_layout
 
 \begin_layout Subsection*

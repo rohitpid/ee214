@@ -79,8 +79,15 @@ Appendix: Final Spice netlist and .op output.
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Appendix
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Appendix"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

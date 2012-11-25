@@ -74,7 +74,15 @@ Page 8: Show a transient simulation plot for each output individually and
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Transient Simulation
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -96,10 +104,6 @@ Transient Simulation
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
