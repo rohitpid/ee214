@@ -1087,11 +1087,41 @@ reference "eq:Cgs_gm"
 \end_inset
 
 ).
- 
+ Equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau1"
+
+\end_inset
+
+) can be rewritten to isolate 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{D1}=\frac{V_{OV1}C_{in}}{2\tau_{1}-1.33\frac{4}{3}\frac{L_{1}^{2}}{\mu_{n}V_{OV1}}}\label{eq:Id1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
 \begin_inset Formula $\tau_{3}$
 \end_inset
 
- follows the same steps:
+ follows the same steps as 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -1102,6 +1132,33 @@ reference "eq:Cgs_gm"
  & = & \frac{1}{1.2}\frac{1}{g_{m3}}2C_{L}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\nonumber \\
 \tau_{3} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{L}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau3}
 \end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau3"
+
+\end_inset
+
+) can be rewritten to isolate 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{D3}=\frac{V_{OV3}C_{L}}{1.2\tau_{3}-1.33\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}}\label{eq:Id3}
+\end{equation}
 
 \end_inset
 
@@ -1127,6 +1184,26 @@ We lump the rest of the capacitances into
  & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
 \tau_{2} & = & (\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\label{eq:tau2}
 \end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+which can turned inside out to isolate 
+\begin_inset Formula $I_{D2}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{D2}=\frac{0.41C_{gs3}(1-V_{OV3})}{2\tau_{2}-(\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{4}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}-1.33\frac{4}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}}\label{eq:Id2}
+\end{equation}
 
 \end_inset
 
