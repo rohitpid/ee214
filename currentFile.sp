@@ -4,9 +4,9 @@
 **************************************************************
 * The specifications that this script achieves are:
 * sunetid = rohitpid, samfok
-* Power  = 2.9985 mW 
-* Gain   = 20.456 K
-* BandWidth = 91.602  MHz
+* Power  = 2.4242 mW  
+* Gain   = 20.631 K 
+* BandWidth = 90.965  MHz
 ***************************************************************
 
 
