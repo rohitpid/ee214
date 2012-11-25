@@ -411,14 +411,715 @@ Ml vx nbias vss vss nmos114 w=2u l=1u
 \end_inset
 
 .op output:
-\begin_inset listings
-lstparams "basicstyle={\ttfamily},breaklines=true,frame=tblr"
-inline false
+\end_layout
+
+\begin_layout Standard
+\noindent
+We consider four capcitances for each MOSFET: 
+\begin_inset Formula $C_{gs}$
+\end_inset
+
+, 
+\begin_inset Formula $C_{gd}$
+\end_inset
+
+, 
+\begin_inset Formula $C_{db}$
+\end_inset
+
+, and 
+\begin_inset Formula $C_{sb}$
+\end_inset
+
+.
+ For ZVTC analysis, the resistances as seen from each capacitance are listed
+ in (Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CapR"
+
+\end_inset
+
+).
+ To further simplify, we assume that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+C_{gd}/C_{gs} & = & 0.25\nonumber \\
+C_{db}/C_{gs} & = & 0.33\nonumber \\
+C_{sb}/C_{gs} & = & 0.33\nonumber \\
+g_{mb}/g_{m} & = & 0.2\label{eq:C_g_assume}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+We will also use: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{C_{gs}}{g_{m}}=\frac{2}{3}\frac{L^{2}}{\mu V_{OV}}\label{eq:Cgs_gm}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+R_{m} & = & \frac{1}{g_{mL1}}\frac{g_{m2}}{g_{mL2}}A_{v3}\nonumber \\
+ & = & \frac{1}{g_{mL1}}\frac{g_{m2}}{g_{mL2}}0.8\nonumber \\
+R_{m} & = & \frac{1}{g_{mL1}}A_{v2}0.8\label{eq:Rm}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Where we assume 
+\begin_inset Formula $A_{v3}=0.8$
+\end_inset
+
+ since 
+\begin_inset Formula $M_{3}$
+\end_inset
+
+ is in common drain configuration.
+\end_layout
+
+\begin_layout Standard
+\noindent
+and
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+V_{OV3}+V_{OVL2}=1V\label{eq:VOV3L2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
 status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="6">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
 
 \begin_layout Plain Layout
 
 \end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{L1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{L2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{gs}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{m1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL2}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}+\frac{1}{6}\frac{1}{g_{mL2}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{gd}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+shorted
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL2}}+\frac{1}{g_{mL1}}+A_{v2}\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+shorted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL2}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{db}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL2}}$
+\end_inset
+
+r
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{mL2}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{sb}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{m1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+shorted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+shorted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+shorted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{in}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2C_{L}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{g_{m1}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CapR"
+
+\end_inset
+
+Resistances seen by Capacitances.
+ 
+\begin_inset Formula $R_{Cgd\_M2}$
+\end_inset
+
+ follows from CS configuration, and 
+\begin_inset Formula $R_{Cgs\_M3}$
+\end_inset
+
+ was derived following HW4P3.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+From Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CapR"
+
+\end_inset
+
+, we can divide the time constants of the circuit into four groups according
+ to the resistances seen by the capacitors.
+ However, we chose to divide the time constants into three groups roughly
+ by branch to produce managable equations:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{1} & = & \frac{1}{g_{m1}}(C_{in}+C_{gs1}+C_{sb1})\nonumber \\
+ & = & \frac{1}{g_{m1}}(C_{in}+1.33C_{gs1})\nonumber \\
+ & = & \frac{1}{g_{m1}}C_{in}+1.33\frac{C_{gs1}}{g_{m1}}\nonumber \\
+\tau_{1} & = & \frac{V_{ov1}}{2I_{D1}}C_{in}+1.33\frac{2}{3}\frac{L_{1}^{2}}{\mu_{n}Vov_{1}}\label{eq:tau1}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Where the second line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C_g_assume"
+
+\end_inset
+
+) and the fourth line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Cgs_gm"
+
+\end_inset
+
+).
+ 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ follows the same steps:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{3} & = & \frac{1}{g_{m3}^{'}}(2C_{L}+C_{gs3}+C_{sb3})\nonumber \\
+ & = & \frac{1}{1.2g_{m3}}(2C_{L}+1.33C_{gs3})\nonumber \\
+ & = & \frac{1}{1.2}\frac{1}{g_{m3}}2C_{L}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\nonumber \\
+\tau_{3} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{L}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau3}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+We lump the rest of the capacitances into 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{2} & = & \frac{1}{g_{mL1}}(C_{gs2}+(1+A_{v2})C_{gd2})+\frac{1}{g_{mL2}}(C_{db2}+C_{gd2}+C_{gsL2}+C_{dbL2}+C_{gd3}+\frac{1}{6}C_{gs3})\nonumber \\
+ & = & \frac{1}{g_{mL1}}(1+0.25(1+A_{v2}))C_{gs2}+\frac{1}{g_{mL2}}(0.58C_{gs2}+1.33C_{gsL2}+0.41C_{gs3})\nonumber \\
+ & = & \frac{R_{m}}{A_{v2}0.8}(1+0.25(1+A_{v2}))C_{gs2}+0.58A_{v2}\frac{C_{gs2}}{g_{m2}}+1.33\frac{C_{gsL2}}{g_{mL2}}+0.41C_{gs3}\frac{V_{OVL2}}{2I_{D2}}\nonumber \\
+ & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{C_{gs2}}{g_{m2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
+ & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
+\tau_{2} & = & (\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\label{eq:tau2}
+\end{eqnarray}
 
 \end_inset
 
