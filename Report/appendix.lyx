@@ -62,8 +62,17 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 Appendix: Final Spice netlist and .op output.
  Include only the MOSFET and node voltage listing from the .op output.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

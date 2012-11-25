@@ -62,6 +62,10 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 Pages 3-6: Calculation of key design parameters, such as transconductances,
  bias currents, etc.
  This is the most important section of your report for giving critical discussio
@@ -73,6 +77,139 @@ n! Compare the most relevant hand calculated values with final Spice values
  The lowest power designs will not automatically score the highest grades.
  The methodology you used to justify your design choices and component values
  is far more important (see section on point distribution below).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Tau Calculations
+\end_layout
+
+\begin_layout Subsection*
+Gain Calculations
+\end_layout
+
+\begin_layout Subsection*
+Bias Circuit Calculations
+\end_layout
+
+\begin_layout Standard
+The bias circuit shown in figure<Need to insert this> was created using
+ the magic battery technique described in Lecture 13.
+ In order to determine the parameters for the bias circuit, we can use the
+ following equation derived in the lecture:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+V_{B}=\sqrt{\frac{(k+1)\cdot2I_{bias}}{\frac{W}{L}\cdot KP}}+V_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+we can then rearrange to solve for 
+\begin_inset Formula $I_{bias}$
+\end_inset
+
+ to get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{bias}=\frac{(V_{B}-V_{t})^{2}(\frac{W}{L}\cdot KP)}{2\cdot(k+1)}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From project specifications we have the constraint that 
+\begin_inset Formula $W_{min}=2\mu\text{m}$
+\end_inset
+
+.
+ We then replace 
+\begin_inset Formula $W$
+\end_inset
+
+ in the equation above with 
+\begin_inset Formula $k\cdot W_{min}$
+\end_inset
+
+ to get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{bias}=\frac{(V_{B}-V_{t})^{2}(\frac{W_{min}}{L}\cdot KP)}{2\cdot(k+1)}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+According to this equation we can see that 
+\begin_inset Formula $I_{bias}$
+\end_inset
+
+is minimized if we pick k=1 because the scaling factor for the rest of the
+ terms is 
+\begin_inset Formula $\frac{1}{4}$
+\end_inset
+
+whereas if we pick a large k, the scaling factor in the limit becomes 
+\begin_inset Formula $\frac{1}{2}.$
+\end_inset
+
+ In our design, we chose to create an overvoltage of 1V so we needed to
+ produce a target bias voltage 
+\begin_inset Formula $V_{B}$
+\end_inset
+
+of 1.5V.
+ These choices for k and 
+\begin_inset Formula $V_{B}$
+\end_inset
+
+give us a bias current 
+\begin_inset Formula $I_{bias}$
+\end_inset
+
+.
+ We can then use Ohm's law to determine 
+\begin_inset Formula $R_{B}$
+\end_inset
+
+, the resistor we need :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+R_{B}=\frac{V_{DD}-V_{ss}-V_{bias}}{I_{bias}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Power Calculations
 \end_layout
 
 \end_body

@@ -62,10 +62,14 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 Outline of design
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Page 1: Outline of your design.
  How did you approach this problem? What are some of your key design choices?
  Flow charts and graphs of how the trade offs are connected provide the
@@ -74,6 +78,11 @@ Page 1: Outline of your design.
  25 Points) is related to Design Flow, Insight and Optimization.
  The clarity of your discussion and insight you give, starting on Page 1,
  is a major factor in doing well for these 25 Points
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

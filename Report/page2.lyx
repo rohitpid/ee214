@@ -29,7 +29,7 @@
 \spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -44,6 +44,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -62,6 +66,10 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 Page 2: Schematic diagram of your final design, with component values (i.e.
  W, L values etc.), node voltages and bias currents (from Spice .op simulation)
  clearly labeled (Spend time to make this schematic complete, readable and
@@ -73,6 +81,11 @@ Page 2: Schematic diagram of your final design, with component values (i.e.
 n).
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -80,9 +93,11 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename projectSchematic.eps
-	scale 40
+	scale 52
+	rotateAngle 90
 
 \end_inset
 

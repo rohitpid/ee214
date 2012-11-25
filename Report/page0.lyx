@@ -70,12 +70,44 @@ Sam Fok and Rohit Pidaparthi
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+3.
+ Project Report Your team is required to prepare a single hardcopy report.
+ Submit your report in the same manner you submitted your homework, promptly
+ by the stated deadline.
+ We will not grant any extensions!! A hand-written report is fine, but neatness
+ is critical.
+ In case you decide to submit a computer-generated report, make sure to
+ use font size of 12 pt (your “manager” is getting older and gets headaches
+ from eye strain—Prof.
+ Dutton is your “manager” and reads every report!).
+ Be sure to follow the formatting instructions below EXACTLY: Page 0: Cover
+ page.
+ Clearly indicate the names of the team members.
+ Also provide a table comparing the given specs and achieved spec.
+ You also need to provide us a percentage–wise break down of area consumed
+ by different sections of bias circuit (NMOS-bias & Bias generator circuit)
+ as compared to your core circuit area (refer to Figure 3).
+ For area calculation, use APMOS/NMOS = W * L
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float table
+placement h
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="3">
 <features tabularvalignment="middle">
@@ -269,11 +301,13 @@ Specifications
 
 \begin_layout Standard
 \begin_inset Float table
+placement h
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="2">
 <features tabularvalignment="middle">
@@ -365,27 +399,6 @@ Relative area breakdown
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-3.
- Project Report Your team is required to prepare a single hardcopy report.
- Submit your report in the same manner you submitted your homework, promptly
- by the stated deadline.
- We will not grant any extensions!! A hand-written report is fine, but neatness
- is critical.
- In case you decide to submit a computer-generated report, make sure to
- use font size of 12 pt (your “manager” is getting older and gets headaches
- from eye strain—Prof.
- Dutton is your “manager” and reads every report!).
- Be sure to follow the formatting instructions below EXACTLY: Page 0: Cover
- page.
- Clearly indicate the names of the team members.
- Also provide a table comparing the given specs and achieved spec.
- You also need to provide us a percentage–wise break down of area consumed
- by different sections of bias circuit (NMOS-bias & Bias generator circuit)
- as compared to your core circuit area (refer to Figure 3).
- For area calculation, use APMOS/NMOS = W * L
 \end_layout
 
 \end_body

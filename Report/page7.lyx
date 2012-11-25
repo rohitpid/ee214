@@ -62,6 +62,21 @@
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Page 7: Simulated Bode Plots of A(jw), phase and magnitude.
+ Clearly annotate the achieved gain and bandwidth.
+ Annotate your hand-calculated values in the same plots, noting any specific
+ features of interest (either from the results themselves or based on what
+ you’ve learned in hand calculations or scripting the design).
+ Plots must be annotated with meaningful comments/observations.
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
@@ -89,15 +104,6 @@ Bode Plot
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Page 7: Simulated Bode Plots of A(jw), phase and magnitude.
- Clearly annotate the achieved gain and bandwidth.
- Annotate your hand-calculated values in the same plots, noting any specific
- features of interest (either from the results themselves or based on what
- you’ve learned in hand calculations or scripting the design).
- Plots must be annotated with meaningful comments/observations.
 \end_layout
 
 \end_body
