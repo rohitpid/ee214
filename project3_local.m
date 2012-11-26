@@ -44,7 +44,7 @@ LL2 = Lmin;
 %%%%%%%%%%%%%% Sweeping Branch 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Id1 = linspace(15E-6, 75E-6, 100);
 Vov1 = linspace(.15, 1, 100);
-[Id1_mesh Vov1_mesh] = meshgrid(Id1, Vov1);
+[Id1_mesh, Vov1_mesh] = meshgrid(Id1, Vov1);
 tau1 = Vov1_mesh ./ (2 * Id1_mesh) * Cin + ...
          1.33 * 2 / 3 * L1^2 ./ (mu_n * Vov1_mesh); 
 
@@ -53,8 +53,8 @@ figure(1); mesh(Id1_mesh, Vov1_mesh, tau1);
 xlabel('Id1'); ylabel('Vov1'); title('tau 1');
 
 % extract parameters
-[min_tau1 min_tau1_row_idx] = min(tau1);
-[min_tau1 min_tau1_col_idx] = min(min_tau1);
+[min_tau1, min_tau1_row_idx] = min(tau1);
+[min_tau1, min_tau1_col_idx] = min(min_tau1);
 min_row = min_tau1_row_idx(min_tau1_col_idx);
 min_col = min_tau1_col_idx;
 
@@ -69,9 +69,13 @@ Cgs1 = (tau1 * gm1 - Cin) / 1.33;
 Id3 = linspace(75E-6, 200E-6, 100);
 Vov3 = linspace(.15, .85, 100);
 [Id3_mesh Vov3_mesh] = meshgrid(Id3, Vov3);
-tau3 = 1.33 / 1.2 * 2 / 3 * L3^2 ./ (mu_n * Vov3_mesh) + ...
-         1 / 1.2 * Vov3_mesh ./ (2 * Id3_mesh) * Cout; 
-
+% tau3 = 1.33 / 1.2 * 2 / 3 * L3^2 ./ (mu_n * Vov3_mesh) + ...
+%          1 / 1.2 * Vov3_mesh ./ (2 * Id3_mesh) * Cout; 
+     
+tau3 = Rout * Cout * Vov3_mesh ./ (1.2 * 2 * Id3_mesh * Rout + Vov3_mesh) + ...
+        1.33 * Rout * 2 * Id3_mesh * 2 * L2^2 * Cox ./ ...
+        (3 * kp_n * (1.2 * 2 * Id3_mesh * Rout + Vov3_mesh.^2) ); 
+     
 % plotting
 figure(3); mesh(Id3_mesh, Vov3_mesh, tau3); 
 xlabel('Id3'); ylabel('Vov3'); title('tau 3');
@@ -98,7 +102,7 @@ WL2 = 2 * Id2 * LL2 / (kp_p * VovL2^2);
 Av2 = linspace(1, 40, 100);
 Vov2 = linspace(.15, 1, 100);
 
-[Av2_mesh Vov2_mesh] = meshgrid(Av2, Vov2);
+[Av2_mesh, Vov2_mesh] = meshgrid(Av2, Vov2);
 
 tau2 = Rm * gmL2 / .8 * (1 + .25 * (1 + Av2_mesh)) * 2 / 3 * L2^2 ./ (mu_n * Vov2_mesh) + ...
        0.58 * Av2_mesh * 2 / 3 * L2^2 ./ (mu_n * Vov2_mesh) + ...

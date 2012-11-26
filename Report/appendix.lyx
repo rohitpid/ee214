@@ -682,7 +682,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}+\frac{1}{6}\frac{1}{g_{mL2}}$
+\begin_inset Formula $\frac{R_{out}}{1+g_{m}^{'}R_{out}}+\frac{1}{6}\frac{1}{g_{mL2}}$
 \end_inset
 
 
@@ -836,7 +836,7 @@ r
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\begin_inset Formula $\frac{R_{out}}{1+g_{m}^{'}R_{out}}$
 \end_inset
 
 
@@ -913,7 +913,7 @@ shorted
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\begin_inset Formula $\frac{R_{out}}{1+g_{m}^{'}R_{out}}$
 \end_inset
 
 
@@ -960,7 +960,7 @@ shorted
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $2C_{L}$
+\begin_inset Formula $C_{out}=2C_{L}$
 \end_inset
 
 
@@ -998,7 +998,7 @@ shorted
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\frac{\nicefrac{R_{L}}{2}}{2+g_{m}^{'}R_{L}}$
+\begin_inset Formula $\frac{R_{out}}{1+g_{m}^{'}R_{out}}$
 \end_inset
 
 
@@ -1034,6 +1034,11 @@ Resistances seen by Capacitances.
 \end_inset
 
  was derived following HW4P3.
+ Also note that 
+\begin_inset Formula $R_{out}=R_{L}/2$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -1144,33 +1149,47 @@ C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
 
 \begin_layout Standard
 \noindent
-Equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:tau1"
-
+As 
+\begin_inset Formula $R_{out}=5\text{k\Omega}$
 \end_inset
 
-) can be rewritten to isolate 
-\begin_inset Formula $I_{D1}$
+and 
+\begin_inset Formula $\frac{1}{g_{m3}^{'}}=\text{O(1k\Omega)}$
 \end_inset
 
-:
-\end_layout
+, we can approximate 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
 
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-I_{D1}=\frac{V_{OV1}C_{in}}{2\tau_{1}-1.33\frac{4}{3}\frac{L_{1}^{2}}{\mu_{n}V_{OV1}}}\label{eq:Id1}
-\end{equation}
-
+\begin_inset Formula $\frac{R_{out}}{1+g_{m}^{'}R_{out}}$
 \end_inset
 
 
-\end_layout
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ with 
+\begin_inset Formula $\frac{1}{g_{m3}^{'}}$
+\end_inset
 
-\begin_layout Standard
-\noindent
+, so
 \begin_inset Formula $\tau_{3}$
 \end_inset
 
@@ -1184,10 +1203,10 @@ I_{D1}=\frac{V_{OV1}C_{in}}{2\tau_{1}-1.33\frac{4}{3}\frac{L_{1}^{2}}{\mu_{n}V_{
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray}
-\tau_{3} & = & \frac{1}{g_{m3}^{'}}(2C_{L}+C_{gs3}+C_{sb3})\nonumber \\
- & = & \frac{1}{1.2g_{m3}}(2C_{L}+1.33C_{gs3})\nonumber \\
- & = & \frac{1}{1.2}\frac{1}{g_{m3}}2C_{L}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\nonumber \\
-\tau_{3} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{L}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau3}
+\tau_{3} & = & \frac{1}{g_{m3}^{'}}(2C+C_{gs3}+C_{sb3})\nonumber \\
+ & = & \frac{1}{1.2g_{m3}}(C_{out}+1.33C_{gs3})\nonumber \\
+ & = & \frac{1}{1.2}\frac{1}{g_{m3}}C_{out}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\nonumber \\
+\tau_{3} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{out}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau3}
 \end{eqnarray}
 
 \end_inset
@@ -1279,33 +1298,6 @@ and
 
 \begin_layout Standard
 \noindent
-Equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:tau3"
-
-\end_inset
-
-) can be rewritten to isolate 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-I_{D3}=\frac{V_{OV3}C_{L}}{1.2\tau_{3}-1.33\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}}\label{eq:Id3}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
 We lump the rest of the capacitances into 
 \begin_inset Formula $\tau_{2}$
 \end_inset
@@ -1323,26 +1315,6 @@ We lump the rest of the capacitances into
  & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
 \tau_{2} & = & (\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\label{eq:tau2}
 \end{eqnarray}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-which can turned inside out to isolate 
-\begin_inset Formula $I_{D2}$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-I_{D2}=\frac{0.41C_{gs3}(1-V_{OV3})}{2\tau_{2}-(\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{4}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}-1.33\frac{4}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}}\label{eq:Id2}
-\end{equation}
 
 \end_inset
 
