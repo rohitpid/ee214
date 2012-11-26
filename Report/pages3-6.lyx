@@ -133,7 +133,8 @@ Our design flow hinges upon calculating the time constants associated with
 \begin_inset Formula $I_{D1}$
 \end_inset
 
-, and 
+.
+ 
 \begin_inset Formula $\tau_{4}$
 \end_inset
 
@@ -146,7 +147,7 @@ Our design flow hinges upon calculating the time constants associated with
 \end_inset
 
 .
- We can thus sweep 
+ We sweep 
 \begin_inset Formula $V_{OV}$
 \end_inset
 
@@ -174,62 +175,28 @@ Our design flow hinges upon calculating the time constants associated with
 \begin_inset Formula $V_{OV3}$
 \end_inset
 
- (see Figure 
+, and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+(see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:tau14"
 
 \end_inset
 
-), and 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
-.
- As 
-\begin_inset Formula $I_{D2}$
-\end_inset
-
- is fixed for a given total power and 
-\begin_inset Formula $I_{D1}$
-\end_inset
-
-and 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
- from sweeping 
+).
+ However, we cannot simply minimize 
 \begin_inset Formula $\tau_{1}$
 \end_inset
 
- and 
+and 
 \begin_inset Formula $\tau_{4}$
 \end_inset
 
-, 
-\begin_inset Formula $\tau_{2}$
-\end_inset
-
- and 
-\begin_inset Formula $\tau_{3}$
-\end_inset
-
- depend only on free parameters 
-\begin_inset Formula $A_{v2}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{OV2}$
-\end_inset
-
- (see Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:tau23"
-
-\end_inset
-
-).
+ by dumping current in branch 1 and 3 as this would leave no current left
+ for the common source branch.
  
 \end_layout
 
@@ -254,49 +221,25 @@ reference "eq:tau1"
 
 \end_inset
 
-), we find:
+), we can extract:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-W_{1}=\frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}
-\]
+\begin{eqnarray*}
+W_{1} & = & \frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}\\
+g_{m1} & = & 2I_{D1}\\
+C_{gs1} & = & \frac{\tau_{1}g_{m1}-C_{in}}{1.33}
+\end{eqnarray*}
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-g_{m1}=\frac{2I_{D1}}{V_{OV1}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-tau 4
 \end_layout
 
 \begin_layout Standard
 \noindent
-From sweeping 
+Similarly, sweeping 
 \begin_inset Formula $I_{D3}$
 \end_inset
 
@@ -315,14 +258,16 @@ reference "eq:tau4"
 
 \end_inset
 
-), we can set:
+), we can extract:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-W_{3}=\frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}
-\]
+\begin{eqnarray*}
+W_{3} & = & \frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}\\
+g_{m3} & = & \frac{2I_{D3}}{V_{OV3}}\\
+C_{gs1} & = & \frac{1.2\tau_{4}g_{m3}-C_{out}}{1.33}
+\end{eqnarray*}
 
 \end_inset
 
@@ -330,10 +275,25 @@ W_{3}=\frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}
 \end_layout
 
 \begin_layout Standard
+\noindent
+In addition, with 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+, fixed power, and 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+, we can set:
 \begin_inset Formula 
-\[
-g_{m3}=\frac{2I_{D3}}{V_{OV3}}
-\]
+\begin{eqnarray*}
+g_{mL2} & = & \frac{2I_{D2}}{1-V_{OV3}}\\
+W_{L2} & = & \frac{2I_{D2}L_{L2}}{KP_{P}(1-V_{OV3})^{2}}
+\end{eqnarray*}
 
 \end_inset
 
@@ -341,10 +301,59 @@ g_{m3}=\frac{2I_{D3}}{V_{OV3}}
 \end_layout
 
 \begin_layout Standard
+For a given total power, 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D2}$
+\end_inset
+
+ is fixed, so 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ depend only on free parameters 
+\begin_inset Formula $A_{v2}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tau23"
+
+\end_inset
+
+).
+ From 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{v2}$
+\end_inset
+
+:
 \begin_inset Formula 
-\[
-C_{gs1}=\frac{\tau_{4}1.2g_{m3}-C_{out}}{1.33}
-\]
+\begin{eqnarray*}
+W_{2} & = & \frac{2I_{D2}L_{2}}{KP_{n}V_{OV2}^{2}}\\
+g_{m2} & = & A_{v2}g_{mL2}\\
+g_{mL1} & = & \frac{0.8A_{v2}}{R_{m}}\\
+V_{OVL1} & = & \frac{2I_{D}}{g_{mL1}}\\
+W_{L1} & = & \frac{2I_{D1}L_{L1}}{KP_{p}V_{OVL1}^{2}}
+\end{eqnarray*}
 
 \end_inset
 
