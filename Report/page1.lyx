@@ -89,5 +89,18 @@ Page 1: Outline of your design.
 Design Outline
 \end_layout
 
+\begin_layout Standard
+From the specifications, Simplifying assumptions - Common mode output voltage
+ requirement
+\end_layout
+
+\begin_layout Standard
+Tau equations
+\end_layout
+
+\begin_layout Standard
+Six free parameters
+\end_layout
+
 \end_body
 \end_document
