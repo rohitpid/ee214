@@ -77,12 +77,21 @@ Page 7: Simulated Bode Plots of A(jw), phase and magnitude.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Bode Plot 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename BodePlot.eps
 	width 12cm

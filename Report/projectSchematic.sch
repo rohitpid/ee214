@@ -22,8 +22,10 @@ C 44500 48800 1 0 0 pmos-2.sym
 {
 T 45200 49000 5 10 0 0 0 0 1
 device=PMOS_TRANSISTOR
-T 44200 49300 5 10 1 1 0 0 1
+T 43900 49300 5 10 1 1 0 0 1
 netname=ML2a
+T 43700 49100 5 10 1 1 0 0 1
+footprint=W=1 L=1
 }
 C 46900 47300 1 0 1 nmos-2.sym
 {
@@ -139,6 +141,8 @@ T 43000 48400 5 10 0 0 180 0 1
 device=NMOS_TRANSISTOR
 T 43200 48000 5 10 1 1 0 0 1
 netname=M3a
+T 43200 47800 5 10 1 1 0 0 1
+footprint=W=1 L=1
 }
 C 51600 44400 1 0 0 nmos-2.sym
 {
@@ -237,7 +241,7 @@ I3b
 B 41000 42400 11400 3400 3 0 0 0 -1 -1 0 -1 -1 -1 -1 -1
 T 41300 45600 9 10 1 0 0 0 1
 Bias Current Circuit
-T 42500 48000 8 10 1 1 0 0 1
+T 43200 47600 8 10 1 1 0 0 1
 overvoltage=Vov3
 C 41700 46600 1 90 0 resistor-1.sym
 {
