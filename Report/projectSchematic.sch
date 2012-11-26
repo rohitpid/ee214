@@ -53,7 +53,7 @@ netname=M2a
 T 44600 47400 5 10 1 1 0 0 1
 footprint=W=6.8 L=1
 T 44600 47100 5 10 1 1 0 0 1
-overvoltage=Vov=267mV
+overvoltage=Vov=404mV
 }
 C 47500 47400 1 0 0 gnd-1.sym
 N 44500 47900 44500 45200 4
@@ -186,7 +186,7 @@ netname=M3a
 T 43200 47800 5 10 1 1 0 0 1
 footprint=W=1 L=1
 T 43200 47600 5 10 1 1 0 0 1
-overvoltage=Vov=404mV
+overvoltage=Vov=253mV
 }
 C 51600 44400 1 0 0 nmos-2.sym
 {
