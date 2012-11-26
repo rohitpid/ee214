@@ -1002,17 +1002,43 @@ and
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 \noindent
 Final Spice Netlist:
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset External
+	template PDFPages
+	filename output_sp.pdf
+	extra LaTeX "pages=-"
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Standard
 \noindent
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\noindent
 .op output:
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
