@@ -81,6 +81,19 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
+This was our first circuit design project so we were tripped up by things
+ we had not encountered before.
+ We haven't worked with differentil circuits before and we had a bug in
+ our SPICE deck because we didn't connect the sources of our differential
+ common source stages.
+ We also found that our hand calculations were significantly off from the
+ spice results.
+ The hand calculations were able to get us within an order of magnitude
+ of the desired values and a small amount of tweaking in spice gave us our
+ final results.
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 
