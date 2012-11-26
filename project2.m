@@ -7,7 +7,7 @@ Vss = -2.5; % in Volts
 Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
 f3dB_target = 80e6; %in Hz
-P_totl = 1.2e-3; %in Watts
+P_totl = 1.35e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
@@ -60,6 +60,7 @@ feasible_W = [];
 feasible_gain = [];
 feasible_BW = [];
 feasible_Vov = [];
+feasible_gm = [];
 gbp = [];
 minW = 1e-6*[2 2 2 2 2 2 2 2];
 
@@ -169,12 +170,18 @@ for k=1:length(Vov1Vec)
                                 %disp('ID3 greater than 270');
                             %end
                             
+                            %bias gm's. We set their overvoltage to 1
+                            gm1bias = 2*ID1/1;
+                            gm2bias = 2*ID2/1;
+                            gm3bias = 2*ID3/1;
+                            
                             wbias1 = 2*ID1*Lmin/(kp_n*(VovBias1^2));
                             wbias2 = 2*ID2*Lmin/(kp_n*(VovBias2^2));
                             wbias3 = 2*ID3*Lmin/(kp_n*(VovBias3^2));
-                            VovVec = [Vov1 Vov2 Vov3 VovL1 VovL2]';
+                            VovVec = [Vov1 Vov2 Vov3 VovL1 VovL2];
                             IDVec = [ID1 ID2 ID3];
                             Wvec = [w1 w2 w3 wL1 wL2 wbias1 wbias2 wbias3];
+                            gmVec = [gm1 gm2 gm3 gmL1 gmL2 gm1bias gm2bias gm3bias];
                             if(f3dB > f3dB_target && sum(Wvec > minW) == 8 && gain >= Rm)
                                 disp('feasible point found');
                                 feasible_ID = [feasible_ID ; IDVec];
@@ -183,7 +190,8 @@ for k=1:length(Vov1Vec)
                                 feasible_W = [feasible_W; Wvec];
                                 feasible_BW = [feasible_BW f3dB];
                                 feasible_gain = [feasible_gain gain];
-                                feasible_Vov = [feasible_Vov VovVec];
+                                feasible_Vov = [feasible_Vov; VovVec];
+                                feasible_gm = [feasible_gm; gmVec];
                                 gbp = [gbp f3dB*gain];
                                 disp(['Gain = ' num2str(gain)]);
                                 disp(['BW = ' num2str(f3dB)]);
