@@ -99,7 +99,16 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Transient Simulation
+Transient Simulation.
+ Input 
+\begin_inset Formula $1\text{MHz}$
+\end_inset
+
+
+\begin_inset Formula $20\text{k\Omega}$
+\end_inset
+
+ gain on distortion observed.
 \end_layout
 
 \end_inset
