@@ -113,7 +113,7 @@ Bode Plot
 \end_inset
 
 The plot shows that our hand calculated f3dB was lower than the spice result.
- This was expected because we know that ZVTC will under approximate the
+ This was expected because we know that ZVTC conservatively estimates the
  bandwidth.
  The magnitude of the gain in our SPICE simulation was lower than the gain
  that we calculated by hand.

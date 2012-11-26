@@ -511,13 +511,16 @@ SPICE Results and Comparison with Hand Calculations
 
 \begin_layout Standard
 When we calculated gain, f3dB bandwidth and power consumption by hand, we
- knew that our f3dB would be lower than the SPICE result because ZVTC gives
- a conservative approximation of f3dB (by about 
-\begin_inset Formula $20\%$
-\end_inset
-
-).
+ knew that our f3dB would be lower than the SPICE result because ZVTC provides
+ a conservative approximation of f3dB.
  We also know that our gain calculations by hand will be 
+\end_layout
+
+\begin_layout Standard
+To trade f3dB for gain, we increased current on the second stage to increase
+ gain and decreased current on the third stage to save power.
+ This accounts for the discrepencies between our hand calculations and our
+ final spice width.
 \end_layout
 
 \begin_layout Standard
@@ -799,10 +802,6 @@ name "tab:Gain,-f3dB-Power"
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
@@ -811,8 +810,8 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="13">
-<features tabularvalignment="middle" tabularwidth="8in">
+<lyxtabular version="3" rows="10" columns="10">
+<features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
@@ -822,10 +821,7 @@ status open
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
 <row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -840,7 +836,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-Hand Calcultions
+Hand Calculations
 \end_layout
 
 \end_inset
@@ -855,15 +851,6 @@ Hand Calcultions
 \end_inset
 </cell>
 <cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -899,16 +886,7 @@ Spice Results
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -935,18 +913,9 @@ Spice Results
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -955,7 +924,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -967,7 +936,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -979,7 +948,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -991,19 +960,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $W(\mu m)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1015,7 +972,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1027,7 +984,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1039,19 +996,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $W(\mu m)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1063,7 +1008,7 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1075,23 +1020,11 @@ Mosfet
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $V_{OV}(V)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $W(\mu m)$
 \end_inset
 
 
@@ -1141,15 +1074,6 @@ M1
 \begin_inset Text
 
 \begin_layout Plain Layout
-10.6
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 230
 \end_layout
 
@@ -1177,15 +1101,6 @@ M1
 \begin_inset Text
 
 \begin_layout Plain Layout
-14.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 16
 \end_layout
 
@@ -1200,20 +1115,11 @@ M1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-48.5
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
--34
+48.5
 \end_layout
 
 \end_inset
@@ -1260,15 +1166,6 @@ M2
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.12
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 157
 \end_layout
 
@@ -1296,15 +1193,6 @@ M2
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 -10.6
 \end_layout
 
@@ -1319,20 +1207,11 @@ M2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-55.4
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
--117
+55.4
 \end_layout
 
 \end_inset
@@ -1379,15 +1258,6 @@ M3
 \begin_inset Text
 
 \begin_layout Plain Layout
-46.9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 645
 \end_layout
 
@@ -1415,15 +1285,6 @@ M3
 \begin_inset Text
 
 \begin_layout Plain Layout
-40.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 18.9
 \end_layout
 
@@ -1438,20 +1299,11 @@ M3
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-25.3
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-14
+25.3
 \end_layout
 
 \end_inset
@@ -1498,15 +1350,6 @@ ML1
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 64.96
 \end_layout
 
@@ -1534,15 +1377,6 @@ ML1
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 31.5
 \end_layout
 
@@ -1557,20 +1391,11 @@ ML1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-36.9
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-4
+36.9
 \end_layout
 
 \end_inset
@@ -1617,15 +1442,6 @@ ML2
 \begin_inset Text
 
 \begin_layout Plain Layout
-4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 71.27
 \end_layout
 
@@ -1653,15 +1469,6 @@ ML2
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 37.1
 \end_layout
 
@@ -1676,20 +1483,11 @@ ML2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-21
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-30
+21
 \end_layout
 
 \end_inset
@@ -1736,15 +1534,6 @@ Mbias1
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 60.12
 \end_layout
 
@@ -1772,15 +1561,6 @@ Mbias1
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 57.8
 \end_layout
 
@@ -1795,20 +1575,11 @@ Mbias1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--2.2
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-21.4
+-2.2
 \end_layout
 
 \end_inset
@@ -1855,15 +1626,6 @@ Mbias2
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.6
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 62.29
 \end_layout
 
@@ -1891,15 +1653,6 @@ Mbias2
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 51.4
 \end_layout
 
@@ -1914,20 +1667,11 @@ Mbias2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--2.2
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-15.4
+-2.2
 \end_layout
 
 \end_inset
@@ -1974,15 +1718,6 @@ Mbias3
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 159.8
 \end_layout
 
@@ -2010,15 +1745,6 @@ Mbias3
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.6
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 40.7
 \end_layout
 
@@ -2033,20 +1759,11 @@ Mbias3
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--2.2
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
--3.7
+-2.2
 \end_layout
 
 \end_inset
@@ -2071,14 +1788,6 @@ Hand calculations vs SPICE simulation results of mosfet parameters.
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-to compensate for overestimating zvtc, we increased current on the second
- stage to increase gain and decreased current on the third stage to save
- power because we had room to lower our 3dB frequency.
- This accounts for the discrepencies between our hand calculations and our
- final spice width.
 \end_layout
 
 \begin_layout Subsection*
