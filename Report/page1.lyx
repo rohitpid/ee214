@@ -128,7 +128,7 @@ reference "fig:Schematic"
 
 \end_inset
 
- that met the specifications listed in table 
+ to the specifications listed in table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Specifications."
@@ -136,66 +136,17 @@ reference "tab:Specifications."
 \end_inset
 
 .
- A common gate stage is used to buffer the input, the common source stage
- amplifies the signal and the common drain stage buffers the output.
- Additionally, we had to design a bias voltage generator and a bias current
- generator circuit to power the core circuit.
- We first designed the core circuit assuming ideal current sources and then
- we designed the biasing circuits to supply the current we needed at each
- stage of the amplifier.
- Our overall design flow is shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Overall-Design-flow."
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ProjectOutline.eps
-	width 3.5in
-
-\end_inset
-
-
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Overall Design flow.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Overall-Design-flow."
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In order to simplify our design of the bias current generator circuit, we
- set the overvoltage of the bias current generator mosfets to 1V.
- This meant that we needed to create a bias voltage of 1.5V from our voltage
- generator circuit.
+ The common gate buffers the input and converts the current signal into
+ a voltage, the common source amplifies the voltage signal and the common
+ drain stage buffers the output.
+ Additionally, we designed a bias voltage generator and a bias current generator
+ circuit to power the core circuit.
+ We designed the core circuit assuming ideal current sources and then designed
+ the biasing circuits to supply the requisite current for each stage of
+ the amplifier.
+ To simplify the NMOS-Bias circuit dimension calculations, we set the overvoltag
+e of the NMOS-Bias nmos' to 1V.
+ This required 1.5V output from our bias generator circuit.
 \end_layout
 
 \begin_layout Standard
@@ -207,29 +158,17 @@ reference "fig:Core-Circuit-Flow"
 \end_inset
 
 .
- We first started with fixed technology parameters and specifications.
- Then we made some design choices such as fixing the channel length of all
- mosfets in the core circuit to 
+ We set all channel lengths to the minimum
 \begin_inset Formula $1\mu m$
 \end_inset
 
-.
- We then split the circuit into 4 nodes and found equations for the time
- constant 
-\begin_inset Formula $\tau$
+ for core circuit MOSFETs as this reduces 
+\begin_inset Formula $C_{gs}=\frac{2}{3}WLC_{ox}$
 \end_inset
 
- at each node.
- We combined 
-\begin_inset Formula $\tau_{2}$
-\end_inset
-
- and 
-\begin_inset Formula $\tau_{3}$
-\end_inset
-
-the time constants in the middle of the circuit to simplify our analysis
- and we swept 
+ to increase bandwidth and eliminate free parameters.
+ We then split the circuit into 4 nodes for calculating the ZVTC time constants.
+ We parametrized the ZVTC time constants with free parameters 
 \begin_inset Formula $I_{D1}$
 \end_inset
 
@@ -254,24 +193,16 @@ the time constants in the middle of the circuit to simplify our analysis
 \end_inset
 
 .
- From sweeping these parameters, we determined other circuit parameters
- such as the 
+ By sweeping over these parameters, we selected instances that met specification
+ and determined circuit parameters such as 
 \begin_inset Formula $g_{m}$
 \end_inset
 
- and the 
+ 
 \begin_inset Formula $w$
 \end_inset
 
- for each stage and 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{OVL2}$
-\end_inset
-
-.
+ .
  Using these parameters, we found
 \begin_inset Formula $\tau$
 \end_inset
@@ -297,6 +228,7 @@ status open
 
 \begin_layout Plain Layout
 \align center
+voltage generator circuitvoltage generator circuit
 \begin_inset Graphics
 	filename CoreCircuitFlow.eps
 	scale 30
