@@ -89,37 +89,179 @@ Design Parameter Calculations
 \end_layout
 
 \begin_layout Standard
-From the constraint that the common mode output voltage be between 
-\begin_inset Formula $-0.5$
+Our design flow hinges upon calculating the time constants associated with
+ each node of the amplifier.
+ As derived in the appendix,
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{1} & = & \frac{V_{ov1}}{2I_{D1}}C_{in}+1.33\frac{2}{3}\frac{L_{1}^{2}}{\mu_{n}Vov_{1}}\label{eq:tau1}\\
+\tau_{2} & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}\label{eq:tau2}\\
+\tau_{3} & = & 0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{OV3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\label{eq:tau3}\\
+\tau_{4} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{out}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau4}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ depends only free parameters 
+\begin_inset Formula $V_{OV1}$
 \end_inset
 
  and 
-\begin_inset Formula $0.5V$
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+ takes the same form with 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{D3}$
 \end_inset
 
 .
- If we set 
-\begin_inset Formula $V_{out}=0V$
+ We can thus sweep 
+\begin_inset Formula $V_{OV}$
 \end_inset
 
-, we have that 
-\begin_inset Formula $V_{sb3}=2.5V$
+ and 
+\begin_inset Formula $I_{D}$
 \end_inset
 
- so 
-\begin_inset Formula $V_{t}(V_{sb3})=V_{t0}+\gamma(\sqrt{2\phi_{f}+V_{sb3}}-\sqrt{2\phi_{f}})\approx1V$
+ for 
+\begin_inset Formula $\tau_{1}$
 \end_inset
 
- for the given technology parameters
+ and 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+ to find suitable values of 
+\begin_inset Formula $V_{OV1}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tau14"
+
+\end_inset
+
+), and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+.
+ As 
+\begin_inset Formula $I_{D2}$
+\end_inset
+
+ is fixed for a given total power and 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+ from sweeping 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+, 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ depend only on free parameters 
+\begin_inset Formula $A_{v2}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tau23"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+From sweeping 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV1}$
+\end_inset
+
+ and picking 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ with (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau1"
+
+\end_inset
+
+), we find:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-V_{OV3} & = & V_{gs3}-V_{t}(V_{sb3})\nonumber \\
- & = & V_{g3}-V_{out}-1V\nonumber \\
-V_{OV3} & = & V_{g3}-0V-1V\label{eq:Vov3}
-\end{eqnarray}
+\[
+W_{1}=\frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}
+\]
 
 \end_inset
 
@@ -128,64 +270,189 @@ V_{OV3} & = & V_{g3}-0V-1V\label{eq:Vov3}
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-V_{OVL2} & = & V_{sgL2}-V_{tL2}\nonumber \\
- & = & V_{DD}-V_{g3}-V_{tL2}\nonumber \\
- & = & 2.5V-V_{g3}-0.5V\nonumber \\
-V_{OVL2} & = & 2V-V_{g3}\label{eq:VovL2}
-\end{eqnarray}
+\[
+g_{m1}=\frac{2I_{D1}}{V_{OV1}}
+\]
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Adding (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Vov3"
-
-\end_inset
-
-) to (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:VovL2"
-
-\end_inset
-
-) yields
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
-V_{OV3}+V_{OVL2}=1V\label{eq:Vov3_VovL2}
-\end{equation}
+\[
+C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
+\]
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection*
-Tau Calculations
 \end_layout
 
 \begin_layout Standard
-See section 
+tau 4
+\end_layout
+
+\begin_layout Standard
+\noindent
+From sweeping 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+ and picking 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+ with (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Appendix"
+reference "eq:tau4"
 
 \end_inset
 
- for derivation.
+), we can set:
 \end_layout
 
-\begin_layout Subsection*
-Gain Calculations
+\begin_layout Standard
+\begin_inset Formula 
+\[
+W_{3}=\frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g_{m3}=\frac{2I_{D3}}{V_{OV3}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C_{gs1}=\frac{\tau_{4}1.2g_{m3}-C_{out}}{1.33}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename tau1.eps
+	width 2.5in
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename tau4.eps
+	width 2.5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tau14"
+
+\end_inset
+
+
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename tau23.eps
+	width 3.5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tau23"
+
+\end_inset
+
+
+\begin_inset Formula $\tau_{2}+\tau_{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
@@ -193,8 +460,14 @@ Bias Circuit Calculations
 \end_layout
 
 \begin_layout Standard
-The bias circuit shown in figure<Need to insert this> was created using
- the magic battery technique described in Lecture 13.
+The bias circuit shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Schematic"
+
+\end_inset
+
+ was created using the magic battery technique of Lecture 13.
  In order to determine the parameters for the bias circuit, we can use the
  following equation derived in the lecture:
 \end_layout

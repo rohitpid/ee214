@@ -49,8 +49,9 @@ tau1 = Vov1_mesh ./ (2 * Id1_mesh) * Cin + ...
          1.33 * 2 / 3 * L1^2 ./ (mu_n * Vov1_mesh); 
 
 % plotting
-figure(1); mesh(Id1_mesh, Vov1_mesh, tau1); 
-xlabel('Id1'); ylabel('Vov1'); title('tau 1');
+figure(1); mesh(Id1_mesh * 10^6, Vov1_mesh, tau1 * 10^12); 
+xlabel('Id1 (\muA)', 'fontsize', 14); ylabel('Vov1 (V)', 'fontsize', 14); zlabel('tau 1 (ps)', 'fontsize', 14);
+set(gca,'fontsize',14); axis tight;
 
 % extract parameters
 [min_tau1, min_tau1_row_idx] = min(tau1);
@@ -77,8 +78,9 @@ tau3 = Rout * Cout * Vov3_mesh ./ (1.2 * 2 * Id3_mesh * Rout + Vov3_mesh) + ...
         (3 * kp_n * (1.2 * 2 * Id3_mesh * Rout + Vov3_mesh.^2) ); 
      
 % plotting
-figure(3); mesh(Id3_mesh, Vov3_mesh, tau3); 
-xlabel('Id3'); ylabel('Vov3'); title('tau 3');
+figure(3); mesh(Id3_mesh * 10^6, Vov3_mesh, tau3 * 10^12); 
+xlabel('Id3 (\muA)', 'fontsize', 14); ylabel('Vov3 (V)', 'fontsize', 14); zlabel('tau 4 (ps)', 'fontsize', 14);
+set(gca,'fontsize',14); axis tight;
 
 % extract parameters
 [min_tau3 min_tau3_row_idx] = min(tau3);
@@ -99,7 +101,7 @@ gmL2 = 2 * Id2 / VovL2;
 WL2 = 2 * Id2 * LL2 / (kp_p * VovL2^2);
 %%%%%%%%%%%%%% Sweeping Branch 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Av2 = linspace(1, 40, 100);
+Av2 = linspace(1, 10, 100);
 Vov2 = linspace(.15, 1, 100);
 
 [Av2_mesh, Vov2_mesh] = meshgrid(Av2, Vov2);
@@ -110,8 +112,9 @@ tau2 = Rm * gmL2 / .8 * (1 + .25 * (1 + Av2_mesh)) * 2 / 3 * L2^2 ./ (mu_n * Vov
        1.33 * 2 / 3 * LL2^2 / (mu_p * (1 - Vov3));
 
 % plotting
-figure(2); mesh(Av2_mesh, Vov2_mesh, tau2);
-xlabel('Av2'); ylabel('Vov2'); title('tau 2');
+figure(2); mesh(Av2_mesh, Vov2_mesh, tau2 * 10^12);
+xlabel('Av2', 'fontsize', 14); ylabel('Vov2 (V)', 'fontsize', 14); zlabel('tau 2 + tau 3 (ps)', 'fontsize', 14);
+set(gca,'fontsize',14); axis tight;
 
 % extract parameters
 [min_tau2 min_tau2_row_idx] = min(tau2);
