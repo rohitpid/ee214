@@ -1,0 +1,420 @@
+Using: /usr/bin/time -p /afs/ir.stanford.edu/class/archive/ee/ee/synopsys.2002/B-2008.09-SP1/hspice/linux/hspice currentFile.sp
+ ****** HSPICE -- B-2008.09-SP1 32-BIT (Nov 24 2008) linux ******               
+  Copyright (C) 2008 Synopsys, Inc. All Rights Reserved.                        
+  Unpublished-rights reserved under US copyright laws.
+  This program is protected by law and is subject to the 
+  terms and conditions of the license agreement from Synopsys.
+  Use of this program is your acceptance to be bound by the 
+  license agreement. HSPICE is the trademark of Synopsys, Inc.
+  Input File: currentFile.sp                                                    
+ lic:  
+ lic: FLEXlm: v8.5b 
+ lic: USER:   samfok               HOSTNAME: corn05.stanford.edu 
+ lic: HOSTID: 001b213a6879         PID:      10127 
+ lic: Using FLEXlm license file: 
+ lic: 27000@cadlic0 
+ lic: Checkout 1 hspice 
+ lic: License/Maintenance for hspice will expire on 09-dec-2012/2011.09 
+ lic: FLOATING license(s) on SERVER cadlic0 
+ lic:   
+ Init: read install configuration file: /afs/ir.stanford.edu/class/archive/ee/ee/synopsys.2002/B-2008.09-SP1/hspice/meta.cfg
+ Init: hspice initialization file: /afs/ir.stanford.edu/class/archive/ee/ee/synopsys.2002/B-2008.09-SP1/hspice/hspice.ini
+ .option runlvl
+ * please fill in the specification achieved by your circuit 
+ * before your submit the netlist.
+ **************************************************************
+ * the specifications that this script achieves are:
+ * sunetid = rohitpid, samfok
+ * power  = 2.4242 mw  
+ * gain   = 20.631 k 
+ * bandwidth = 90.965  mhz
+ ***************************************************************
+
+
+ ** including the model file
+ .include /usr/class/ee114/hspice/ee114_hspice.sp
+ * device models for ee114  rev.1.2 (10/04/08)
+ * fall 2008 - by b. murmann
+ * include this file in your hspice deck using .inc usr/class/ee114/hspice/ee114_hspice.sp
+
+ *** nmos device parameters
+ .param n_vto=0.5 n_cox=2.3m n_kp=50u n_gamma=0.6 n_phi=0.8 n_lambda=0.1u
+ .param n_cgdo=0.5n n_cgso=0.5n n_cj=0.1m n_cjsw=0.5n n_pb=0.95 n_mj=0.5 n_mjsw=0.33 n_hdif=1.5u
+
+ *** pmos device parameters
+ .param p_vto=-0.5 p_cox=2.3m p_kp=25u p_gamma=0.6 p_phi=0.8 p_lambda=0.1u
+ .param p_cgdo=0.5n p_cgso=0.5n p_cj=0.3m p_cjsw=0.35n p_pb=0.95 p_mj=0.5 p_mjsw=0.33 p_hdif=1.5u
+
+ *** channel lengths supported in this file (add additional values or edit if needed)
+ *** minimum length is 1um, minimum increment is 0.2um
+ .param wmin=2u l1=1u l2=1.2u l3=1.4u l4=1.6u l5=1.8u l6=2.0u l7=2.2u l8=2.4u l9=2.6u l10=2.8u l11=3u l12=5u l13=10u l14=20u l15=50u
+
+
+ ***********************************************  idealized n-channel *********************************************************
+ **** no channel length modulation, no extrinsic capacitances
+ **** example instantiation: m1 nmos114_ideal d g s b w=10u l=1u
+ ****
+ .model nmos114_ideal nmos level=1 capop=1 vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lmin=l1 lmax=1m wmin=wmin wmax=10m
+
+
+ ***********************************************  idealized p-channel *********************************************************
+ **** no channel length modulation, no extrinsic capacitances
+ **** example instantiation: m1 pmos114_ideal d g s b w=10u l=1u
+ ****
+ .model pmos114_ideal pmos level=1 capop=1 vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lmin=l1 lmax=1m wmin=wmin wmax=10m
+
+
+ **************************************************** n-channels **************************************************************
+ **** lambda is computed based on channel length; as, ads, ps, pd are automatically calculated based on hdif, acm=3
+ **** example instantiation: m1 nmos114 d g s b w=10u l=1u
+ ****
+ .model nmos114.1 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l1'
+ + lmin=l1 lmax='l1+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.2 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l2'
+ + lmin=l2 lmax='l2+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.3 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l3'
+ + lmin=l3 lmax='l3+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.4 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l4'
+ + lmin=l4 lmax='l4+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.5 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l5'
+ + lmin=l5 lmax='l5+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.6 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l6'
+ + lmin=l6 lmax='l6+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.7 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l7'
+ + lmin=l7 lmax='l7+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.8 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l8'
+ + lmin=l8 lmax='l8+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.9 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l9'
+ + lmin=l9 lmax='l9+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.10 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l10'
+ + lmin=l10 lmax='l10+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.11 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l11'
+ + lmin=l11 lmax='l11+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.12 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l12'
+ + lmin=l12 lmax='l12+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.13 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l13'
+ + lmin=l13 lmax='l13+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.14 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l14'
+ + lmin=l14 lmax='l14+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+ .model nmos114.15 nmos level=1 capop=1 acm=3 cjgate=0 hdif=n_hdif vto=n_vto cox=n_cox kp=n_kp gamma=n_gamma phi=n_phi lambda='n_lambda/l15'
+ + lmin=l15 lmax='l15+0.01u' wmin=wmin wmax=10m cgdo=n_cgso cgso=n_cgso cj=n_cj cjsw=n_cjsw pb=n_pb mj=n_mj mjsw=n_mjsw
+
+
+ **************************************************** p-channels **************************************************************
+ **** lambda is computed based on channel length; as, ads, ps, pd are automatically calculated based on hdif, acm=3
+ **** example instantiation: m1 pmos114 d g s b w=10u l=1u
+ ****
+ .model pmos114.1 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l1'
+ + lmin=l1 lmax='l1+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.2 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l2'
+ + lmin=l2 lmax='l2+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.3 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l3'
+ + lmin=l3 lmax='l3+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.4 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l4'
+ + lmin=l4 lmax='l4+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.5 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l5'
+ + lmin=l5 lmax='l5+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.6 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l6'
+ + lmin=l6 lmax='l6+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.7 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l7'
+ + lmin=l7 lmax='l7+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.8 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l8'
+ + lmin=l8 lmax='l8+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.9 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l9'
+ + lmin=l9 lmax='l9+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.10 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l10'
+ + lmin=l10 lmax='l10+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.11 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l11'
+ + lmin=l11 lmax='l11+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.12 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l12'
+ + lmin=l12 lmax='l12+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.13 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l13'
+ + lmin=l13 lmax='l13+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.14 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l14'
+ + lmin=l14 lmax='l14+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+ .model pmos114.15 pmos level=1 capop=1 acm=3 cjgate=0 hdif=p_hdif vto=p_vto cox=p_cox kp=p_kp gamma=p_gamma phi=p_phi lambda='p_lambda/l15'
+ + lmin=l15 lmax='l15+0.01u' wmin=wmin wmax=10m cgdo=p_cgso cgso=p_cgso cj=p_cj cjsw=p_cjsw pb=p_pb mj=p_mj mjsw=p_mjsw
+
+
+ ********************************** bjts **********************************
+ * note that these models are for elementary devices having is=1fa
+ * for other device sizes use a multiplier m=... in your netlist
+ .model npn npn is=1f bf=100 va=100 tf=20p
+
+
+ .model pnp pnp is=1f bf=50  va=50  tf=80p
+
+ ************************ well-to-substrate diode (for pmos) ************** 
+ * example instantiation (area = 10um*10um = 100pm^2)
+ *    (anode)  (cathode) (model) (area)
+ * d1 sub_node well_node  dwell   100p  
+ .model dwell d cj0=1e-4 m=0.5
+
+
+ * defining top level circuit parameters
+ .param cin = 100f
+ .param cl  = 500f
+ .param rl  = 10k
+
+ * defining the supply voltages
+
+ vdd vdd 0 2.5
+ vss vss 0 -2.5
+
+ * defining the input current source
+
+ ** for ac simulation uncomment the following 2 lines**
+  iina		iina	vdd	ac	0.5	
+  iinb		vdd	iinb	ac	0.5	
+
+ ** for transient simulation uncomment the following 2 lines**
+ *iina		iina	vdd	sin(0 0.5u 1e6)
+ *iinb		vdd	iinb	sin(0 0.5u 1e6)
+
+ * defining input capacitance
+
+ cina	vdd	iina 'cin'
+ cinb	vdd	iinb 'cin'
+
+ * defining the differential load 
+
+ rl	vouta		voutb		'rl'
+ cl	vouta		voutb		'cl'
+
+ *** your trans-impedance amplifier here ***
+ **nmos***
+ *name drain gate source bulk type parameters*
+ m1a  node_1a 0 iina vss nmos114 w=14.2u l=1u
+ m1b  node_1b 0 iinb vss nmos114 w=14.2u l=1u
+ m2a  node_2a node_1a ibias2 vss nmos114 w=6.8u l=1u
+ m2b  node_2b node_1b ibias2 vss nmos114 w=6.8u l=1u
+ m3a  vdd node_2a vouta vss nmos114 w=40.2u l=1u
+ m3b  vdd node_2b voutb vss nmos114 w=40.2u l=1u
+
+ **pmos***
+ *name drain gate source bulk type parameters*
+ ml1a node_1a node_1a vdd vdd pmos114 w=2.4u l=1u 
+ ml1b node_1b node_1b vdd vdd pmos114 w=2.4u l=1u 
+ ml2a node_2a node_2a vdd vdd pmos114 w=2.8u l=1u 
+ ml2b node_2b node_2b vdd vdd pmos114 w=2.8u l=1u 
+
+ *** your bias circuitry here ***
+ **nmos***
+ *name drain gate source bulk type parameters*
+ mbias1a iina nbias vss vss nmos114 w=2.2u l=2u
+ mbias1b iinb nbias vss vss nmos114 w=2.2u l=2u
+ mbias2a ibias2 nbias vss vss nmos114 w=2.2u l=2u
+ mbias2b ibias2 nbias vss vss nmos114 w=2.2u l=2u
+ mbias3a vouta nbias vss vss nmos114 w=5.6u l=2u
+ mbias3b voutb nbias vss vss nmos114 w=5.6u l=2u
+
+ ** for students enrolled in ee114, you can use the given ideal voltage source
+ *vbias_n nbias vss 1.5   *replace --- by your value
+
+ *** drain gate source bulk mostype w_value l_value
+ *m1 vb vb vdd vdd pmos114 w=2u l=20u
+
+ *** nmos
+ *** drain gate source bulk mostype w_value l_value
+ mu nbias nbias vx vss nmos114 w=2u l=1u
+ ml vx nbias vss vss nmos114 w=2u l=1u
+
+ *resistors
+ r vdd nbias 140k
+
+ ** for students enrolled in ee214a, you need to design your bias ciruit. you cannpt use vbias_n as ideal voltage source.
+
+
+
+ * defining the analysis
+
+ .op
+ .option post brief nomod
+ 
+      
+ ****** HSPICE -- B-2008.09-SP1 32-BIT (Nov 24 2008) linux ******               
+ ******  
+ * design problem, ee114/214a- 2012
+
+  ******  operating point information tnom=  25.000 temp=  25.000 *****
+ ***** operating point status is all       simulation time is     0.     
+    node    =voltage      node    =voltage      node    =voltage
+
+ +0:ibias2  =-345.1616m 0:iina    =  -1.1166  0:iinb    =  -1.1166 
+ +0:nbias   =-977.6485m 0:node_1a =   1.0540  0:node_1b =   1.0540 
+ +0:node_2a =   1.1064  0:node_2b =   1.1064  0:vdd     =   2.5000 
+ +0:vouta   =-171.4282m 0:voutb   =-171.4282m 0:vss     =  -2.5000 
+ +0:vx      =  -2.2270 
+
+
+ ****  voltage sources
+
+ subckt                        
+ element  0:vdd      0:vss     
+  volts      2.5000    -2.5000 
+  current -313.3478u  313.3478u
+  power    783.3695u  783.3695u
+
+     total voltage source power dissipation=    1.5667m       watts
+
+
+
+ ***** current sources
+
+ subckt                        
+ element  0:iina     0:iinb    
+  volts     -3.6166     3.6166 
+  current    0.         0.     
+  power      0.         0.     
+
+
+     total current source power dissipation=   0.            watts
+
+ **** resistors
+
+ subckt                        
+ element  0:rl       0:r       
+  r value   10.0000k  140.0000k
+  v drop   832.6673a    3.4776 
+  current  8.327e-20   24.8403u
+  power      0.        86.3860u
+
+
+
+ **** mosfets
+
+
+ subckt                                                                    
+ element  0:m1a      0:m1b      0:m2a      0:m2b      0:m3a      0:m3b     
+ model    0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati   Saturati   Saturati
+  id        30.7312u   30.7312u   31.8399u   31.8399u   81.6826u   81.6826u
+  ibs      -13.8338f  -13.8338f  -21.5484f  -21.5484f  -23.2857f  -23.2857f
+  ibd      -35.5398f  -35.5398f  -36.0644f  -36.0644f  -50.0000f  -50.0000f
+  vgs        1.1166     1.1166     1.3991     1.3991     1.2779     1.2779 
+  vds        2.1706     2.1706     1.4516     1.4516     2.6714     2.6714 
+  vbs       -1.3834    -1.3834    -2.1548    -2.1548    -2.3286    -2.3286 
+  vth      849.9200m  849.9200m  994.7223m  994.7223m    1.0246     1.0246 
+  vdsat    266.6980m  266.6980m  404.4160m  404.4160m  253.2614m  253.2614m
+  vod      266.6980m  266.6980m  404.4160m  404.4160m  253.2614m  253.2614m
+  beta     864.1122u  864.1122u  389.3546u  389.3546u    2.5470m    2.5470m
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m
+  gm       230.4570u  230.4570u  157.4612u  157.4612u  645.0458u  645.0458u
+  gds        2.5250u    2.5250u    2.7804u    2.7804u    6.4462u    6.4462u
+  gmb       46.7893u   46.7893u   27.4807u   27.4807u  109.4054u  109.4054u
+  cdtot     15.1944f   15.1944f    8.1767f    8.1767f   37.8570f   37.8570f
+  cgtot     36.4525f   36.4525f   17.3665f   17.3665f  103.1510f  103.1510f
+  cstot     39.0998f   39.0998f   19.2848f   19.2848f  103.5813f  103.5813f
+  cbtot     18.6108f   18.6108f   10.3140f   10.3140f   40.2499f   40.2499f
+  cgs       28.8734f   28.8734f   13.8267f   13.8267f   81.7403f   81.7403f
+  cgd        7.1945f    7.1945f    3.4303f    3.4303f   20.4293f   20.4293f
+
+
+
+ subckt                                                                    
+ element  0:ml1a     0:ml1b     0:ml2a     0:ml2b     0:mbias1a  0:mbias1b 
+ model    0:pmos114. 0:pmos114. 0:pmos114. 0:pmos114. 0:nmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati   Saturati   Saturati
+  id       -30.7312u  -30.7312u  -31.8399u  -31.8399u   30.7312u   30.7312u
+  ibs        0.         0.         0.         0.         0.         0.     
+  ibd       14.4602f   14.4602f   13.9356f   13.9356f  -13.8338f  -13.8338f
+  vgs       -1.4460    -1.4460    -1.3936    -1.3936     1.5224     1.5224 
+  vds       -1.4460    -1.4460    -1.3936    -1.3936     1.3834     1.3834 
+  vbs        0.         0.         0.         0.         0.         0.     
+  vth     -500.0000m -500.0000m -500.0000m -500.0000m  500.0000m  500.0000m
+  vdsat   -946.0234m -946.0234m -893.5570m -893.5570m    1.0224     1.0224 
+  vod     -946.0234m -946.0234m -893.5570m -893.5570m    1.0224     1.0224 
+  beta      68.6761u   68.6761u   79.7549u   79.7549u   58.8043u   58.8043u
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m
+  gm        64.9692u   64.9692u   71.2655u   71.2655u   60.1187u   60.1187u
+  gds        2.6849u    2.6849u    2.7946u    2.7946u    1.4372u    1.4372u
+  gmb       21.7913u   21.7913u   23.9032u   23.9032u   20.1644u   20.1644u
+  cdtot      4.7373f    4.7373f    5.3027f    5.3027f    4.5877f    4.5877f
+  cgtot      6.1194f    6.1194f    7.1407f    7.1407f    9.0141f    9.0141f
+  cstot      9.9800f    9.9800f   11.2934f   11.2934f   12.6067f   12.6067f
+  cbtot      8.6553f    8.6553f    9.5262f    9.5262f    8.2778f    8.2778f
+  cgs        4.8800f    4.8800f    5.6934f    5.6934f    7.8467f    7.8467f
+  cgd        1.2106f    1.2106f    1.4120f    1.4120f    1.1187f    1.1187f
+
+
+
+ subckt                                                                    
+ element  0:mbias2a  0:mbias2b  0:mbias3a  0:mbias3b  0:mu       0:ml      
+ model    0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati   Saturati     Linear
+  id        31.8399u   31.8399u   81.6826u   81.6826u   24.8403u   24.8403u
+  ibs        0.         0.         0.         0.        -2.7295f    0.     
+  ibd      -21.5484f  -21.5484f  -23.2857f  -23.2857f  -15.2235f   -2.7295f
+  vgs        1.5224     1.5224     1.5224     1.5224     1.2494     1.5224 
+  vds        2.1548     2.1548     2.3286     2.3286     1.2494   272.9544m
+  vbs        0.         0.         0.         0.      -272.9544m    0.     
+  vth      500.0000m  500.0000m  500.0000m  500.0000m  584.8448m  500.0000m
+  vdsat      1.0224     1.0224     1.0224     1.0224   664.5523m  272.9544m
+  vod        1.0224     1.0224     1.0224     1.0224   664.5523m    1.0224 
+  beta      60.9258u   60.9258u  156.3000u  156.3000u  112.4940u  102.7295u
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m
+  gm        62.2876u   62.2876u  159.7935u  159.7935u   74.7581u   28.0405u
+  gds        1.4372u    1.4372u    3.6582u    3.6582u    2.2081u   79.4033u
+  gmb       20.8919u   20.8919u   53.5964u   53.5964u   21.6516u    9.4051u
+  cdtot      4.2679f    4.2679f    7.6382f    7.6382f    4.2969f    7.2545f
+  cgtot      9.0245f    9.0245f   22.9775f   22.9775f    5.1045f    6.5858f
+  cstot     12.6067f   12.6067f   27.4534f   27.4534f    8.2756f    8.1180f
+  cbtot      7.9476f    7.9476f   12.3624f   12.3624f    7.5284f    8.8311f
+  cgs        7.8467f    7.8467f   19.9734f   19.9734f    4.0667f    3.5180f
+  cgd        1.1291f    1.1291f    2.8800f    2.8800f    1.0077f    3.0456f
+
+
+
+ ******  
+ * design problem, ee114/214a- 2012
+
+  ******  ac analysis tnom=  25.000 temp=  25.000 *****
+   gainmax=  8.0064E+01    at=  1.2882E+04
+               from=  1.0000E+02    to=  1.0000E+10
+   f3db=  9.0041E+07
+
+          ***** job concluded
+ ****** HSPICE -- B-2008.09-SP1 32-BIT (Nov 24 2008) linux ******               
+ ******  
+ * design problem, ee114/214a- 2012
+
+  ******  job statistics summary tnom=  25.000 temp=  25.000 *****
+
+  ******  HSPICE Threads Information  ******
+  Command Line Threads Count:                      0
+  Available CPU Count:                             8
+  Actual Model Evaluation(Load) Threads Count:     1
+  Actual Solver Threads Count:                     1
+
+
+  ******  Circuit Statistics  ******
+  # nodes       =      14  # elements   =      27
+  # resistors   =       2  # capacitors =       3  # inductors   =       0
+  # mutual_inds =       0  # vccs       =       0  # vcvs        =       0
+  # cccs        =       0  # ccvs       =       0  # volt_srcs   =       2
+  # curr_srcs   =       2  # diodes     =       0  # bjts        =       0
+  # jfets       =       0  # mosfets    =      18  # U elements  =       0
+  # T elements  =       0  # W elements =       0  # B elements  =       0
+  # S elements  =       0  # P elements =       0  # va device   =       0
+
+
+  ******  Runtime Statistics (seconds)  ******
+
+  analysis           time    # points   tot. iter  conv.iter
+  op point           0.00           1           7
+  ac analysis        0.02         801         801
+  readin             0.00
+  errchk             0.00
+  setup              0.00
+  output             0.00
+
+
+           total memory used          184  kbytes
+           total cpu time            0.02 seconds
+           total elapsed time        0.09 seconds
+           job started at     01:51:59 11/26/2012
+           job ended   at     01:51:59 11/26/2012
+
+
+ Init: hspice initialization file: /afs/ir.stanford.edu/class/archive/ee/ee/synopsys.2002/B-2008.09-SP1/hspice/hspice.ini
+ lic: Release hspice token(s) 

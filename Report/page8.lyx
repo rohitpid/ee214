@@ -100,15 +100,20 @@ status open
 
 \begin_layout Plain Layout
 Transient Simulation.
- Input 
+ Input is 
 \begin_inset Formula $1\text{MHz}$
 \end_inset
 
+, 
+\begin_inset Formula $0.5\mu\text{A}$
+\end_inset
 
+ differential sine wave.
+ Slightly greater than 
 \begin_inset Formula $20\text{k\Omega}$
 \end_inset
 
- gain on distortion observed.
+ gain observed with no distortion.
 \end_layout
 
 \end_inset
