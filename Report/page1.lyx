@@ -121,7 +121,7 @@ Common gate is to buffer input, Common gain to buffer output etc.
 \end_layout
 
 \begin_layout Standard
-Our project was to design a three stage amplifier as shown in figure 
+Our project was to design the three stage amplifier in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Schematic"
@@ -136,55 +136,47 @@ reference "tab:Specifications."
 \end_inset
 
 .
- The common gate buffers the input and converts the current signal into
- a voltage, the common source amplifies the voltage signal and the common
- drain stage buffers the output.
- Additionally, we designed a bias voltage generator and a bias current generator
- circuit to power the core circuit.
- We designed the core circuit assuming ideal current sources and then designed
- the biasing circuits to supply the requisite current for each stage of
- the amplifier.
- To simplify the NMOS-Bias circuit dimension calculations, we set the overvoltag
-e of the NMOS-Bias nmos' to 1V.
+ The common gate stage buffers the input and converts the current signal
+ into a voltage signal, the common source stage amplifies the voltage signal,
+ and the common drain stage buffers the output.
+ Additionally, we designed a current mirror circuit and bias generator circuit.
+ We first designed the core circuit assuming ideal current sources and then
+ designed the biasing circuits to supply the requisite current for each
+ stage of the amplifier.
+ To simplify the design process, we set all channel lengths to the minimum
+ length.
+ This helps constrain the design space and reduces capacitances by minimizing
+ the MOSFET area, and lowering capacitance increases our 3dB bandwidth.
+ To simplify the NMOS-Bias circuit dimension calculations, we set the overdrive
+ voltage of the NMOS-Bias circuit to 1V.
  This required 1.5V output from our bias generator circuit.
+ 
 \end_layout
 
 \begin_layout Standard
-Our design flow for the core circuit is shown in figure 
+Our core circuit design flow is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Core-Circuit-Flow"
 
 \end_inset
 
+ and centers on estimating the 3dB bandwidth with ZVTC analysis.
+ We found that the circuit divided into 4 nodes (i.e.
+ time constants) -- two nodes between stages and nodes at the input and
+ output.
+ Further, we found that the input and output time constants could be analyzed
+ as functions of just two free parameters each: 
+\begin_inset Formula $V_{OV}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{D}$
+\end_inset
+
 .
- We set all channel lengths to the minimum
-\begin_inset Formula $1\mu m$
-\end_inset
-
- for core circuit MOSFETs as this reduces 
-\begin_inset Formula $C_{gs}=\frac{2}{3}WLC_{ox}$
-\end_inset
-
- to increase bandwidth and eliminate free parameters.
- We then split the circuit into 4 nodes for calculating the ZVTC time constants.
- We parametrized the ZVTC time constants with free parameters 
-\begin_inset Formula $I_{D1}$
-\end_inset
-
-, 
-\begin_inset Formula $V_{OV1}$
-\end_inset
-
-, 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
-, 
-\begin_inset Formula $V_{OV3}$
-\end_inset
-
-, 
+ Subsequently, the time constants between stages could also be parameterized
+ by two free parameters: 
 \begin_inset Formula $A_{V2}$
 \end_inset
 
@@ -193,31 +185,42 @@ reference "fig:Core-Circuit-Flow"
 \end_inset
 
 .
- By sweeping over these parameters, we selected instances that met specification
- and determined circuit parameters such as 
-\begin_inset Formula $g_{m}$
+ We found a steep bandwidth-power trade off at the common drain stage due
+ to the large output capacitance 
+\begin_inset Formula $C_{out}\sim\text{O(pF)}$
 \end_inset
 
+ and a power-gain tradeoff at the common source stage.
+ In addition, it was not sufficient to minimize time constants in stage-by-stage
+ as this would leave insufficient current for the last stage analyzed, so
+ we swept over 
+\begin_inset Formula $V_{OV1}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{V2}$
+\end_inset
+
+, and 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+ simultaneously and selected instances that met specification.
+ By decreasing the total power available to our circuit and rerunning our
+ analysis, we minimized power consumption.
  
-\begin_inset Formula $w$
-\end_inset
-
- .
- Using these parameters, we found
-\begin_inset Formula $\tau$
-\end_inset
-
- values and gain values that met the specifications.
- Finally, we decreased the power available to our circuit in a sweep to
- minimize power consumption.
- We found that the main trade offs occurred at the common drain stage for
- 3dB bandwidth and power which was caused by the large output capacitance
- 
-\begin_inset Formula $C_{out}$
-\end_inset
-
- and the main trade off between power and gain occurred at the common source
- stage.
 \end_layout
 
 \begin_layout Standard
@@ -227,8 +230,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\noindent
 \align center
-voltage generator circuitvoltage generator circuit
 \begin_inset Graphics
 	filename CoreCircuitFlow.eps
 	scale 30
