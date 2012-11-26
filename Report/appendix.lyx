@@ -1072,7 +1072,22 @@ reference "tab:CapR"
 
 \begin_layout Standard
 \noindent
-From sweeping 
+Where the second line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C_g_assume"
+
+\end_inset
+
+) and the fourth line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Cgs_gm"
+
+\end_inset
+
+).
+ From sweeping 
 \begin_inset Formula $I_{D1}$
 \end_inset
 
@@ -1129,22 +1144,7 @@ C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
 
 \begin_layout Standard
 \noindent
-Where the second line follows from (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:C_g_assume"
-
-\end_inset
-
-) and the fourth line follows from (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Cgs_gm"
-
-\end_inset
-
-).
- Equation (
+Equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:tau1"

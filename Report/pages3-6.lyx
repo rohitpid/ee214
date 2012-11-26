@@ -88,6 +88,42 @@ n! Compare the most relevant hand calculated values with final Spice values
 Design Parameter Calculations
 \end_layout
 
+\begin_layout Standard
+From the constraint that the common mode output voltage be between 
+\begin_inset Formula $-0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $0.5V$
+\end_inset
+
+.
+ If we set 
+\begin_inset Formula $V_{out}=0V$
+\end_inset
+
+, we have that 
+\begin_inset Formula $V_{sb3}=2.5V$
+\end_inset
+
+ so 
+\begin_inset Formula $V_{t}(V_{sb3})=V_{t0}+\gamma(\sqrt{2\phi_{f}+V_{sb3}}-\sqrt{2\phi_{f}})\approx1V$
+\end_inset
+
+ for the given technology parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+V_{OV3}=V_{gs3}-V_{t}(V_{sb3})
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection*
 Tau Calculations
 \end_layout
