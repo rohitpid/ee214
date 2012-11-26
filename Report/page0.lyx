@@ -169,7 +169,7 @@ Power dissipation
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1.5667 mW
 \end_layout
 
 \end_inset
@@ -201,6 +201,22 @@ Small-signal transresistance gain
 \begin_inset Text
 
 \begin_layout Plain Layout
+20.148
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ k
+\begin_inset Formula $\Omega$
+\end_inset
+
 
 \end_layout
 
@@ -236,7 +252,7 @@ Bandwidth
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+90.041MHz
 \end_layout
 
 \end_inset
@@ -272,7 +288,7 @@ Common mode output voltage
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+-0.1714
 \end_layout
 
 \end_inset
