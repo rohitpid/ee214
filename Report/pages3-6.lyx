@@ -115,9 +115,54 @@ From the constraint that the common mode output voltage be between
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-V_{OV3}=V_{gs3}-V_{t}(V_{sb3})
-\]
+\begin{eqnarray}
+V_{OV3} & = & V_{gs3}-V_{t}(V_{sb3})\nonumber \\
+ & = & V_{g3}-V_{out}-1V\nonumber \\
+V_{OV3} & = & V_{g3}-0V-1V\label{eq:Vov3}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+V_{OVL2} & = & V_{sgL2}-V_{tL2}\nonumber \\
+ & = & V_{DD}-V_{g3}-V_{tL2}\nonumber \\
+ & = & 2.5V-V_{g3}-0.5V\nonumber \\
+V_{OVL2} & = & 2V-V_{g3}\label{eq:VovL2}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Adding (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Vov3"
+
+\end_inset
+
+) to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:VovL2"
+
+\end_inset
+
+) yields
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+V_{OV3}+V_{OVL2}=1V\label{eq:Vov3_VovL2}
+\end{equation}
 
 \end_inset
 
