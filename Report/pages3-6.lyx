@@ -94,8 +94,8 @@ Design Parameter Calculations
 \end_layout
 
 \begin_layout Standard
-Our design flow hinges upon calculating the time constants associated with
- each node of the amplifier.
+Our design flow hinges upon estimating the ZVTCs associated with each node
+ of the amplifier.
  As derived in the appendix,
 \end_layout
 
@@ -127,10 +127,14 @@ Our design flow hinges upon calculating the time constants associated with
 
 \begin_layout Standard
 \noindent
-\begin_inset Formula $\tau_{1}$
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau1"
+
 \end_inset
 
- depends only free parameters 
+) depends only free parameters 
 \begin_inset Formula $V_{OV1}$
 \end_inset
 
@@ -138,12 +142,14 @@ Our design flow hinges upon calculating the time constants associated with
 \begin_inset Formula $I_{D1}$
 \end_inset
 
-.
- 
-\begin_inset Formula $\tau_{4}$
+, and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau4"
+
 \end_inset
 
- takes the same form with 
+) takes the same form with 
 \begin_inset Formula $V_{OV3}$
 \end_inset
 
@@ -151,40 +157,25 @@ Our design flow hinges upon calculating the time constants associated with
 \begin_inset Formula $I_{D3}$
 \end_inset
 
-.
- We sweep 
-\begin_inset Formula $V_{OV}$
+ .
+ Since we picked minimum channel length, the second terms of the sums do
+ not contribute much and 
+\begin_inset Formula $\tau_{1}$
 \end_inset
 
  and 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+ are minimized by by maximizing 
 \begin_inset Formula $I_{D}$
 \end_inset
 
- for 
-\begin_inset Formula $\tau_{1}$
+ and minimizing 
+\begin_inset Formula $V_{OV}$
 \end_inset
 
- and 
-\begin_inset Formula $\tau_{4}$
-\end_inset
-
- to find suitable values of 
-\begin_inset Formula $V_{OV1}$
-\end_inset
-
-, 
-\begin_inset Formula $I_{D1}$
-\end_inset
-
-, 
-\begin_inset Formula $V_{OV3}$
-\end_inset
-
-, and 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
-(see Figure 
+ (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:tau14"
@@ -192,16 +183,6 @@ reference "fig:tau14"
 \end_inset
 
 ).
- However, we cannot simply minimize 
-\begin_inset Formula $\tau_{1}$
-\end_inset
-
-and 
-\begin_inset Formula $\tau_{4}$
-\end_inset
-
- by dumping current in branch 1 and 3 as this would leave no current left
- for the common source branch.
  
 \end_layout
 
@@ -226,14 +207,14 @@ reference "eq:tau1"
 
 \end_inset
 
-), we can extract:
+), we extract:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
 W_{1} & = & \frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}\\
-g_{m1} & = & 2I_{D1}\\
+g_{m1} & = & \frac{2I_{D1}}{V_{OV1}}\\
 C_{gs1} & = & \frac{\tau_{1}g_{m1}-C_{in}}{1.33}
 \end{eqnarray*}
 
@@ -281,7 +262,7 @@ C_{gs1} & = & \frac{1.2\tau_{4}g_{m3}-C_{out}}{1.33}
 
 \begin_layout Standard
 \noindent
-In addition, with 
+With 
 \begin_inset Formula $I_{D1}$
 \end_inset
 
@@ -289,15 +270,11 @@ In addition, with
 \begin_inset Formula $I_{D3}$
 \end_inset
 
-, fixed power, and 
-\begin_inset Formula $V_{OV3}$
-\end_inset
-
-, we can set:
+, and a fixed total power, we can set:
 \begin_inset Formula 
 \begin{eqnarray*}
-g_{mL2} & = & \frac{2I_{D2}}{1-V_{OV3}}\\
-W_{L2} & = & \frac{2I_{D2}L_{L2}}{KP_{P}(1-V_{OV3})^{2}}
+g_{mL2} & = & \frac{2I_{D2}}{V_{OVL2}}\\
+W_{L2} & = & \frac{2I_{D2}L_{L2}}{KP_{P}V_{OVL2}^{2}}
 \end{eqnarray*}
 
 \end_inset
@@ -306,7 +283,25 @@ W_{L2} & = & \frac{2I_{D2}L_{L2}}{KP_{P}(1-V_{OV3})^{2}}
 \end_layout
 
 \begin_layout Standard
-For a given total power, 
+\noindent
+Where 
+\begin_inset Formula $I_{D2}=I_{total}-I_{D1}-I_{D3}$
+\end_inset
+
+ from the power constraint and 
+\begin_inset Formula $V_{OVL2}=1-V_{OV3}$
+\end_inset
+
+ from the constraint that the common mode output voltage be between 
+\begin_inset Formula $-0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $0.5V$
+\end_inset
+
+ (derivation in appendix).
+ For a given total power, 
 \begin_inset Formula $I_{D1}$
 \end_inset
 
@@ -318,15 +313,21 @@ and
 \begin_inset Formula $I_{D2}$
 \end_inset
 
- is fixed, so 
-\begin_inset Formula $\tau_{2}$
+ is fixed, so (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau2"
+
 \end_inset
 
- and 
-\begin_inset Formula $\tau_{3}$
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau3"
+
 \end_inset
 
- depend only on free parameters 
+) depend only on free parameters 
 \begin_inset Formula $A_{v2}$
 \end_inset
 
@@ -334,7 +335,7 @@ and
 \begin_inset Formula $V_{OV2}$
 \end_inset
 
- (see Figure 
+, so we consider their sum (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:tau23"
@@ -404,11 +405,35 @@ name "fig:tau14"
 \begin_inset Formula $\tau_{1}$
 \end_inset
 
-, 
+ and
 \begin_inset Formula $\tau_{4}$
 \end_inset
 
+ take on the same form and both are minimized by maximixing current and
+ minimizing overdrive voltage.
+ Note that a large 
+\begin_inset Formula $I_{D3}$
+\end_inset
 
+ is required to compensate for the large 
+\begin_inset Formula $C_{out}$
+\end_inset
+
+.
+ In addition, 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+ is restricted from being too small by the specification that common mode
+ output voltage be between 
+\begin_inset Formula $-0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $0.5V$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -454,7 +479,20 @@ name "fig:tau23"
 \begin_inset Formula $\tau_{2}+\tau_{3}$
 \end_inset
 
+ shows a convex shape that increases with 
+\begin_inset Formula $A_{v2}$
+\end_inset
 
+.
+ In addition, as 
+\begin_inset Formula $A_{v2}$
+\end_inset
+
+ increases, the range of feasible 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+ becomes more restricted.
 \end_layout
 
 \end_inset
@@ -474,7 +512,11 @@ SPICE Results and Comparison with Hand Calculations
 \begin_layout Standard
 When we calculated gain, f3dB bandwidth and power consumption by hand, we
  knew that our f3dB would be lower than the SPICE result because ZVTC gives
- an under approximation of f3dB.
+ a conservative approximation of f3dB (by about 
+\begin_inset Formula $20\%$
+\end_inset
+
+).
  We also know that our gain calculations by hand will be 
 \end_layout
 
@@ -770,8 +812,8 @@ status open
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="10" columns="13">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0">
+<features tabularvalignment="middle" tabularwidth="8in">
+<column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
@@ -1063,7 +1105,7 @@ Mosfet
 \begin_inset Text
 
 \begin_layout Plain Layout
-M1a/b
+M1
 \end_layout
 
 \end_inset
@@ -1090,7 +1132,7 @@ M1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.5182
+0.52
 \end_layout
 
 \end_inset
@@ -1126,7 +1168,7 @@ M1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.267
+0.27
 \end_layout
 
 \end_inset
@@ -1182,7 +1224,7 @@ M1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-M2a/b
+M2
 \end_layout
 
 \end_inset
@@ -1209,7 +1251,7 @@ M2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.9056
+0.91
 \end_layout
 
 \end_inset
@@ -1245,7 +1287,7 @@ M2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.404
+0.40
 \end_layout
 
 \end_inset
@@ -1301,7 +1343,7 @@ M2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-M3a/b
+M3
 \end_layout
 
 \end_inset
@@ -1328,7 +1370,7 @@ M3a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.3389
+0.34
 \end_layout
 
 \end_inset
@@ -1364,7 +1406,7 @@ M3a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.253
+0.25
 \end_layout
 
 \end_inset
@@ -1420,7 +1462,7 @@ M3a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-ML1a/b
+ML1
 \end_layout
 
 \end_inset
@@ -1483,7 +1525,7 @@ ML1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.946
+0.95
 \end_layout
 
 \end_inset
@@ -1539,7 +1581,7 @@ ML1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-ML2a/b
+ML2
 \end_layout
 
 \end_inset
@@ -1566,7 +1608,7 @@ ML2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.1318
+1.13
 \end_layout
 
 \end_inset
@@ -1602,7 +1644,7 @@ ML2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.894
+0.89
 \end_layout
 
 \end_inset
@@ -1658,7 +1700,7 @@ ML2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-Mbias1a/b
+Mbias1
 \end_layout
 
 \end_inset
@@ -1721,7 +1763,7 @@ Mbias1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0224
+1.02
 \end_layout
 
 \end_inset
@@ -1777,7 +1819,7 @@ Mbias1a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-Mbias2a/b
+Mbias2
 \end_layout
 
 \end_inset
@@ -1840,7 +1882,7 @@ Mbias2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0224
+1.02
 \end_layout
 
 \end_inset
@@ -1896,7 +1938,7 @@ Mbias2a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-Mbias3a/b
+Mbias3
 \end_layout
 
 \end_inset
@@ -1959,7 +2001,7 @@ Mbias3a/b
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0224
+1.02
 \end_layout
 
 \end_inset
@@ -2029,6 +2071,14 @@ Hand calculations vs SPICE simulation results of mosfet parameters.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+to compensate for overestimating zvtc, we increased current on the second
+ stage to increase gain and decreased current on the third stage to save
+ power because we had room to lower our 3dB frequency.
+ This accounts for the discrepencies between our hand calculations and our
+ final spice width.
 \end_layout
 
 \begin_layout Subsection*
@@ -2147,6 +2197,37 @@ give us a bias current
 \begin{equation}
 R_{B}=\frac{V_{DD}-V_{ss}-V_{bias}}{I_{bias}}
 \end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Hand calculations vs SPICE simulation results of mosfet parameters.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
