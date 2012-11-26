@@ -6,12 +6,12 @@ Vdd = 2.5; % in volts
 Vss = -2.5; % in Volts
 Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
-f3dB_target = 55e6; %in Hz
+f3dB_target = 80e6; %in Hz
 P_totl = 1.5e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
-Rm = 18e3; % 20k transresistance small signal
+Rm = 10e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Lmin = 1e-6;    % m
@@ -59,6 +59,7 @@ feasible_ID = [];
 feasible_W = [];
 feasible_gain = [];
 feasible_BW = [];
+feasible_Vov = [];
 gbp = [];
 minW = 1e-6*[2 2 2 2 2 2 2 2];
 
@@ -67,11 +68,11 @@ ID2_IDtot = linspace(.001, .5, 20);
 VovBias1 = 1;
 VovBias2 = 1;
 VovBias3 = 1;
-Vov1Vec = linspace(0.15,1,10);
+Vov1Vec = linspace(0.15,1.5,12);
 Vov2Vec = linspace(0.15,1,10);
 Vov3Vec = linspace(0.15,1,10);
-VovL1Vec = linspace(0.15,1,10);
-VovL2Vec = linspace(0.15,1,10);
+VovL1Vec = linspace(0.15,1.5,12);
+VovL2Vec = linspace(0.15,1.5,12);
 
 for k=1:length(Vov1Vec)
     Vov1 = Vov1Vec(k);
@@ -149,9 +150,9 @@ for k=1:length(Vov1Vec)
                             
                             % Calculations for tau4
                             
-                            %tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3+Cgs3); %ZVTC
+                            tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3+Cgs3); %ZVTC
                             %tau4 = (Rout / (Rout * gm3prime + 1)) * (Cout+Csb3); %Miller
-                            tau4 = (1/gm3prime) * (Cout+Csb3+Cgs3); %ZVTC
+                            %tau4 = (1/gm3prime) * (Cout+Csb3+Cgs3); %ZVTC
                             
                             tau = [tau1 tau2 tau3 tau4];
                             
@@ -171,7 +172,7 @@ for k=1:length(Vov1Vec)
                             wbias1 = 2*ID1*Lmin/(kp_n*(VovBias1^2));
                             wbias2 = 2*ID2*Lmin/(kp_n*(VovBias2^2));
                             wbias3 = 2*ID3*Lmin/(kp_n*(VovBias3^2));
-                            
+                            VovVec = [Vov1 Vov2 Vov3 VovL1 VovL2]';
                             IDVec = [ID1 ID2 ID3];
                             Wvec = [w1 w2 w3 wL1 wL2 wbias1 wbias2 wbias3];
                             if(f3dB > f3dB_target && sum(Wvec > minW) == 8 && gain >= Rm)
@@ -182,6 +183,7 @@ for k=1:length(Vov1Vec)
                                 feasible_W = [feasible_W; Wvec];
                                 feasible_BW = [feasible_BW f3dB];
                                 feasible_gain = [feasible_gain gain];
+                                feasible_Vov = [feasible_Vov VovVec];
                                 gbp = [gbp f3dB*gain];
                                 disp(['Gain = ' num2str(gain)]);
                                 disp(['BW = ' num2str(f3dB)]);
