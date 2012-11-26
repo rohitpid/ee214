@@ -88,7 +88,7 @@ Bode Plot
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -112,7 +112,14 @@ Bode Plot
 
 \end_inset
 
-
+The plot shows that our hand calculated f3dB was lower than the spice result.
+ This was expected because we know that ZVTC will under approximate the
+ bandwidth.
+ The magnitude of the gain in our SPICE simulation was lower than the gain
+ that we calculated by hand.
+ The phase plot shows that there is a 2nd pole at a higher frequency than
+ f3dB.
+ 
 \end_layout
 
 \end_body
