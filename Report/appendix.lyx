@@ -66,8 +66,26 @@
 \begin_body
 
 \begin_layout Standard
-\begin_inset Note Comment
+\begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+arraystretch{1.5}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Plain Layout
 Appendix: Final Spice netlist and .op output.
@@ -513,22 +531,6 @@ Where we assume
 \end_layout
 
 \begin_layout Standard
-\noindent
-and
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-V_{OV3}+V_{OVL2}=1V\label{eq:VOV3L2}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float table
 placement h
 wide false
@@ -803,7 +805,7 @@ shorted
 \begin_inset Formula $\frac{1}{g_{mL2}}$
 \end_inset
 
-r
+
 \end_layout
 
 \end_inset
@@ -1057,18 +1059,25 @@ reference "tab:CapR"
 
 , we can divide the time constants of the circuit into four groups according
  to the resistances seen by the capacitors.
- However, we chose to divide the time constants into three groups roughly
- by branch to produce managable equations:
+ 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ consists of the capacitors that see resistance 
+\begin_inset Formula $\frac{1}{g_{m1}}$
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-\tau_{1} & = & \frac{1}{g_{m1}}(C_{in}+C_{gs1}+C_{sb1})\nonumber \\
- & = & \frac{1}{g_{m1}}(C_{in}+1.33C_{gs1})\nonumber \\
- & = & \frac{1}{g_{m1}}C_{in}+1.33\frac{C_{gs1}}{g_{m1}}\nonumber \\
-\tau_{1} & = & \frac{V_{ov1}}{2I_{D1}}C_{in}+1.33\frac{2}{3}\frac{L_{1}^{2}}{\mu_{n}Vov_{1}}\label{eq:tau1}
-\end{eqnarray}
+\begin{eqnarray*}
+\tau_{1} & = & \frac{1}{g_{m1}}(C_{in}+C_{gs1}+C_{sb1})\\
+ & = & \frac{1}{g_{m1}}(C_{in}+1.33C_{gs1})\\
+ & = & \frac{1}{g_{m1}}C_{in}+1.33\frac{C_{gs1}}{g_{m1}}\\
+\tau_{1} & = & \frac{V_{ov1}}{2I_{D1}}C_{in}+1.33\frac{2}{3}\frac{L_{1}^{2}}{\mu_{n}Vov_{1}}
+\end{eqnarray*}
 
 \end_inset
 
@@ -1077,7 +1086,7 @@ reference "tab:CapR"
 
 \begin_layout Standard
 \noindent
-Where the second line follows from (
+The second line follows from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:C_g_assume"
@@ -1092,55 +1101,163 @@ reference "eq:Cgs_gm"
 \end_inset
 
 ).
- From sweeping 
-\begin_inset Formula $I_{D1}$
+ 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+ consists of the capacitors that see resistance 
+\begin_inset Formula $R_{L1}=\frac{1}{g_{mL1}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\tau_{2} & = & \frac{1}{g_{mL1}}(C_{gs2}+(1+A_{v2})C_{gd2})\\
+ & = & \frac{1}{g_{mL1}}(1+0.25(1+A_{v2}))C_{gs2}\\
+ & = & \frac{R_{m}}{A_{v2}0.8}(1+0.25(1+A_{v2}))C_{gs2}\\
+ & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{C_{gs2}}{g_{m2}}\\
+\tau_{2} & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The second line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C_g_assume"
+
+\end_inset
+
+), the third line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Rm"
+
+\end_inset
+
+), and the fifth line follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Cgs_gm"
+
+\end_inset
+
+).
+ 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ consists of the capacitors that see resistance 
+\begin_inset Formula $\frac{1}{g_{mL2}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\tau_{3} & = & \frac{1}{g_{mL2}}(C_{db2}+C_{gd2}+C_{gsL2}+C_{dbL2}+C_{gd3}+\frac{1}{6}C_{gs3})\\
+ & = & \frac{1}{g_{mL2}}(0.58C_{gs2}+1.33C_{gsL2}+0.41C_{gs3})\\
+ & = & 0.58A_{v2}\frac{C_{gs2}}{g_{m2}}+1.33\frac{C_{gsL2}}{g_{mL2}}+0.41C_{gs3}\frac{V_{OVL2}}{2I_{D2}}\\
+ & = & 0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\\
+\tau_{3} & = & 0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{OV3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Note that 
+\begin_inset Formula $V_{OVL2}=1-V_{OV3}$
+\end_inset
+
+ from the constraint that the common mode output voltage be between 
+\begin_inset Formula $-0.5$
 \end_inset
 
  and 
-\begin_inset Formula $V_{OV1}$
+\begin_inset Formula $0.5V$
 \end_inset
 
- and picking 
-\begin_inset Formula $\tau_{1}$
+.
+ If we set 
+\begin_inset Formula $V_{out}=0V$
 \end_inset
 
- with (
+, we have that 
+\begin_inset Formula $V_{sb3}=2.5V$
+\end_inset
+
+ so 
+\begin_inset Formula $V_{t}(V_{sb3})=V_{t0}+\gamma(\sqrt{2\phi_{f}+V_{sb3}}-\sqrt{2\phi_{f}})\approx1V$
+\end_inset
+
+ for the given technology parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+V_{OV3} & = & V_{gs3}-V_{t}(V_{sb3})\nonumber \\
+ & = & V_{g3}-V_{out}-1V\nonumber \\
+V_{OV3} & = & V_{g3}-0V-1V\label{eq:Vov3}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+V_{OVL2} & = & V_{sgL2}-V_{tL2}\nonumber \\
+ & = & V_{DD}-V_{g3}-V_{tL2}\nonumber \\
+ & = & 2.5V-V_{g3}-0.5V\nonumber \\
+V_{OVL2} & = & 2V-V_{g3}\label{eq:VovL2}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Adding (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:tau1"
+reference "eq:Vov3"
 
 \end_inset
 
-), we can set:
+) to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:VovL2"
+
+\end_inset
+
+) yields
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-W_{1}=\frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-g_{m1}=\frac{2I_{D1}}{V_{OV1}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
-\]
+\begin{equation}
+V_{OV3}+V_{OVL2}=1V\label{eq:Vov3_VovL2}
+\end{equation}
 
 \end_inset
 
@@ -1190,7 +1307,7 @@ and
 \end_inset
 
 , so
-\begin_inset Formula $\tau_{3}$
+\begin_inset Formula $\tau_{4}$
 \end_inset
 
  follows the same steps as 
@@ -1202,119 +1319,12 @@ and
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-\tau_{3} & = & \frac{1}{g_{m3}^{'}}(2C+C_{gs3}+C_{sb3})\nonumber \\
- & = & \frac{1}{1.2g_{m3}}(C_{out}+1.33C_{gs3})\nonumber \\
- & = & \frac{1}{1.2}\frac{1}{g_{m3}}C_{out}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\nonumber \\
-\tau_{3} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{out}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}\label{eq:tau3}
-\end{eqnarray}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-From sweeping 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{OV3}$
-\end_inset
-
- and picking 
-\begin_inset Formula $\tau_{3}$
-\end_inset
-
- with (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:tau3"
-
-\end_inset
-
-), we can set:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-W_{3}=\frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-g_{m3}=\frac{2I_{D3}}{V_{OV3}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-C_{gs1}=\frac{\tau_{3}1.2g_{m3}-C_{out}}{1.33}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-Having picked 
-\begin_inset Formula $I_{D1}$
-\end_inset
-
-and 
-\begin_inset Formula $I_{D3}$
-\end_inset
-
-, we can set 
-\begin_inset Formula $I_{D2}=I_{tot}-I_{D1}-I_{D3}$
-\end_inset
-
-, and having set 
-\begin_inset Formula $V_{OV3}$
-\end_inset
-
-, we know that 
-\begin_inset Formula $V_{OVL2}=1-V_{OV3}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-We lump the rest of the capacitances into 
-\begin_inset Formula $\tau_{2}$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{eqnarray}
-\tau_{2} & = & \frac{1}{g_{mL1}}(C_{gs2}+(1+A_{v2})C_{gd2})+\frac{1}{g_{mL2}}(C_{db2}+C_{gd2}+C_{gsL2}+C_{dbL2}+C_{gd3}+\frac{1}{6}C_{gs3})\nonumber \\
- & = & \frac{1}{g_{mL1}}(1+0.25(1+A_{v2}))C_{gs2}+\frac{1}{g_{mL2}}(0.58C_{gs2}+1.33C_{gsL2}+0.41C_{gs3})\nonumber \\
- & = & \frac{R_{m}}{A_{v2}0.8}(1+0.25(1+A_{v2}))C_{gs2}+0.58A_{v2}\frac{C_{gs2}}{g_{m2}}+1.33\frac{C_{gsL2}}{g_{mL2}}+0.41C_{gs3}\frac{V_{OVL2}}{2I_{D2}}\nonumber \\
- & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{C_{gs2}}{g_{m2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
- & = & \frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+0.58A_{v2}\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}V_{OVL2}}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\nonumber \\
-\tau_{2} & = & (\frac{R_{m}g_{mL2}}{0.8}(1+0.25(1+A_{v2}))+0.58A_{v2})\frac{2}{3}\frac{L_{2}^{2}}{\mu_{n}V_{OV2}}+1.33\frac{2}{3}\frac{L_{L2}^{2}}{\mu_{p}(1-V_{ov3})}+0.41C_{gs3}\frac{1-V_{OV3}}{2I_{D2}}\label{eq:tau2}
-\end{eqnarray}
+\begin{eqnarray*}
+\tau_{4} & = & \frac{1}{g_{m3}^{'}}(C_{out}+C_{gs3}+C_{sb3})\\
+ & = & \frac{1}{1.2g_{m3}}(C_{out}+1.33C_{gs3})\\
+ & = & \frac{1}{1.2}\frac{1}{g_{m3}}C_{out}+\frac{1.33}{1.2}\frac{C_{gs3}}{g_{m3}}\\
+\tau_{4} & = & \frac{1}{1.2}\frac{V_{OV3}}{I_{D3}}C_{out}+\frac{1.33}{1.2}\frac{2}{3}\frac{L_{3}^{2}}{\mu_{n}V_{OV3}}
+\end{eqnarray*}
 
 \end_inset
 

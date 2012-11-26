@@ -45,12 +45,12 @@ LL1 = Lmin;
 LL2 = Lmin;
 
 %%%%%%%%%%%%%% Initialize Space %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-n = 20;
+n = 10;
 Id1_space = linspace(15E-6, 75E-6, n);
-Vov1_space = linspace(.15, 1, n);
+Vov1_space = linspace(.15, 1.6, n);
 Id3_space = linspace(75E-6, 200E-6, n);
-Vov3_space = linspace(.15, .85, n);
-Av2_space = linspace(1, 40, n);
+Vov3_space = linspace(.15, 1, n);
+Av2_space = linspace(1, 4, n);
 Vov2_space = linspace(.15, 1, n);
 
 valid_Rm = [];
@@ -63,6 +63,8 @@ valid_Id = [];
 f3dB_max = 0;
 Rm_max = 0;
 
+I_power = 1;
+
 for Id1_idx = 1 : length(Id1_space)
     Id1 = Id1_space(Id1_idx);
     Wbias1 = 2 * Id1 * Lbias / (kp_n * Vovbias);
@@ -70,8 +72,8 @@ for Id1_idx = 1 : length(Id1_space)
         Vov1 = Vov1_space(Vov1_idx);
         %%%%% branch 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         tau1 = Vov1 ./ (2 * Id1) * Cin + ...
-               1.33 * 2 / 3 * L1^2 ./ (mu_n * Vov1);
-           
+            1.33 * 2 / 3 * L1^2 ./ (mu_n * Vov1);
+        
         W1 = 2 * Id1 * L1 / (kp_n * Vov1.^2);
         gm1 = 2 * Id1 / Vov1;
         Cgs1 = (tau1 * gm1 - Cin) / 1.33;
@@ -82,68 +84,86 @@ for Id1_idx = 1 : length(Id1_space)
             for Vov3_idx = 1 : length(Vov3_space)
                 Vov3 = Vov3_space(Vov3_idx);
                 %%%%% branch 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                tau3 = 1.33 / 1.2 * 2 / 3 * L3^2 ./ (mu_n * Vov3) + ...
-                    1 / 1.2 * Vov3 ./ (2 * Id3) * Cout;
+%                 tau3 = 1.33 / 1.2 * 2 / 3 * L3^2 ./ (mu_n * Vov3) + ...
+%                     1 / 1.2 * Vov3 ./ (2 * Id3) * Cout;
+                tau3 = Rout * Cout * Vov3 / (1.2 * 2 * Id3 * Rout + Vov3) + ...
+        1.33 * Rout * 2 * Id3 * 2 * L3^2 * Cox ./ ...
+        (3 * kp_n * (1.2 * 2 * Id3 * Rout + Vov3.^2) );
                 
                 W3 = 2 * Id3 * L3 / (kp_n * Vov3^2);
                 gm3 = 2 * Id3 / Vov3;
                 Cgs3 = (1.2 * tau3 * gm3 - Cout) / 1.33;
                 
                 VovL2 = 1 - Vov3;
-                Id2 = IDtot - Id1 - Id3;
-                Wbias2 = 2 * Id2 * Lbias / (kp_n * Vovbias);
-                gmL2 = 2 * Id2 / VovL2;
-                WL2 = 2 * Id2 * LL2 / (kp_p * VovL2^2);
-                
-                for Av2_idx = 1 : length(Av2_space)
-                    Av2 = Av2_space(Av2_idx);
-                    for Vov2_idx = 1 : length(Vov2_space)
-                        Vov2 = Vov2_space(Vov2_idx);
-                        %%%%% branch 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                        tau2 = Rm * gmL2 / .8 * (1 + .25 * (1 + Av2)) * 2 / 3 * L2^2 ./ (mu_n * Vov2) + ...
-                            0.58 * Av2 * 2 / 3 * L2^2 ./ (mu_n * Vov2) + ...
-                            0.41 * Cgs3 * Vov2 / (2 * Id2) + ...
-                            1.33 * 2 / 3 * LL2^2 / (mu_p * (1 - Vov3));
-                        
-                        W2 = 2 * Id2 * L2 / (kp_n * Vov2^2);
-                        gm2 = Av2 * gmL2;
-                        gmL1 = Av2 * .8 / Rm;
-                        VovL1 = 2 * Id1 / gmL1;
-                        WL1 = 2 * Id1 * LL1 / (kp_p * VovL1^2);
-                        
-                        %%%%%%%%%%%%%% Consolidate Results %%%%%%%%%%%%%%%%
-                        tau = [tau1 tau2 tau3];
-                        est_f3dB = 1 / (2 * pi * sum(tau));
-                        est_Rm = 1 / gmL1 * Av2 * 0.8;
-                        Widths = [W1 W2 W3 WL1 WL2 Wbias1 Wbias2 Wbias3];
-                        ValidCircuit = est_f3dB >= f3dB_target && ...
-                                       est_Rm >= Rm && ...
-                                       sum(Widths >= Wmin) == 8;
-                        if ValidCircuit
-                            valid_Rm = [valid_Rm ; est_Rm];
-                            valid_f3dB = [valid_f3dB; est_f3dB];
-                            valid_W = [valid_W ; [W1 W2 W3]];
-                            valid_WL = [valid_WL ; [WL1 WL2]];
-                            valid_Id = [valid_Id ; [Id1 Id2 Id3]];
-                            valid_Wbias = [valid_Wbias ; [Wbias1 Wbias2 Wbias3]];
-                        end
-                        if est_f3dB > f3dB_max && est_Rm >= Rm_max
-                            W_max = [W1 W2 W3] * 1e6
-                            WL_max = [WL1 WL2] * 1e6
-                            Id_max = [Id1 Id2 Id3] * 1e6
-                            Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
-                            f3dB_max = est_f3dB
-                            Rm_max = est_Rm
+                Id2_space = IDtot - Id1 - Id3;
+%                 Id2_space = linspace(15E-6, IDtot - Id1 - Id3, 3);
+                for Id2_idx = 1 : length(Id2_space)
+                    Id2 = Id2_space(Id2_idx);
+                    Wbias2 = 2 * Id2 * Lbias / (kp_n * Vovbias);
+                    gmL2 = 2 * Id2 / VovL2;
+                    WL2 = 2 * Id2 * LL2 / (kp_p * VovL2^2);
+                    
+                    for Av2_idx = 1 : length(Av2_space)
+                        Av2 = Av2_space(Av2_idx);
+                        for Vov2_idx = 1 : length(Vov2_space)
+                            Vov2 = Vov2_space(Vov2_idx);
+                            %%%%% branch 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                            tau2 = Rm * gmL2 / .8 * (1 + .25 * (1 + Av2)) * 2 / 3 * L2^2 ./ (mu_n * Vov2) + ...
+                                0.58 * Av2 * 2 / 3 * L2^2 ./ (mu_n * Vov2) + ...
+                                0.41 * Cgs3 * Vov2 / (2 * Id2) + ...
+                                1.33 * 2 / 3 * LL2^2 / (mu_p * (1 - Vov3));
+                            
+                            W2 = 2 * Id2 * L2 / (kp_n * Vov2^2);
+                            gm2 = Av2 * gmL2;
+                            gmL1 = Av2 * .8 / Rm;
+                            VovL1 = 2 * Id1 / gmL1;
+                            WL1 = 2 * Id1 * LL1 / (kp_p * VovL1^2);
+                            
+                            %%%%%%%%%%%%%% Consolidate Results %%%%%%%%%%%%%%%%
+                            tau = [tau1 tau2 tau3];
+                            est_f3dB = 1 / (2 * pi * sum(tau));
+                            est_Rm = 1 / gmL1 * Av2 * 0.8;
+                            Widths = [W1 W2 W3 WL1 WL2 Wbias1 Wbias2 Wbias3];
+                            I = [Id1 Id2 Id3];
+                            ValidCircuit = est_f3dB >= f3dB_target && ...
+                                est_Rm >= Rm && ...
+                                sum(Widths >= Wmin) == 8;
                             if ValidCircuit
-                                valid_W_max = [W1 W2 W3] * 1e6
-                                valid_WL_max = [WL1 WL2] * 1e6
-                                valid_Id_max = [Id1 Id2 Id3] * 1e6
-                                valid_Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
-                                valid_f3dB_max = est_f3dB
-                                valid_Rm_max = est_Rm
-                                disp('ValidCicuit---------------------------');
-                            else                                
-                                disp('--------------------------------------');
+                                valid_Rm = [valid_Rm ; est_Rm];
+                                valid_f3dB = [valid_f3dB; est_f3dB];
+                                valid_W = [valid_W ; [W1 W2 W3]];
+                                valid_WL = [valid_WL ; [WL1 WL2]];
+                                valid_Id = [valid_Id ; [Id1 Id2 Id3]];
+                                valid_Wbias = [valid_Wbias ; [Wbias1 Wbias2 Wbias3]];
+                                if sum(I) < I_power
+                                    valid_W_power = [W1 W2 W3] * 1e6
+                                    valid_WL_power = [WL1 WL2] * 1e6
+                                    valid_Id_power = [Id1 Id2 Id3] * 1e6
+                                    valid_Wbias_power = [Wbias1 Wbias2 Wbias3] * 1e6
+                                    valid_f3dB_power = est_f3dB
+                                    valid_Rm_power = est_Rm
+                                    I_power = sum(I)
+                                    disp('Valid Power Cicuit---------------------------');
+                                end
+                            end
+                            if est_f3dB > f3dB_max && est_Rm >= Rm_max
+                                W_max = [W1 W2 W3] * 1e6
+                                WL_max = [WL1 WL2] * 1e6
+                                Id_max = [Id1 Id2 Id3] * 1e6
+                                Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
+                                f3dB_max = est_f3dB
+                                Rm_max = est_Rm
+                                if ValidCircuit
+                                    valid_W_max = [W1 W2 W3] * 1e6
+                                    valid_WL_max = [WL1 WL2] * 1e6
+                                    valid_Id_max = [Id1 Id2 Id3] * 1e6
+                                    valid_Wbias_max = [Wbias1 Wbias2 Wbias3] * 1e6
+                                    valid_f3dB_max = est_f3dB
+                                    valid_Rm_max = est_Rm
+                                    disp('ValidCicuit---------------------------');
+                                else
+                                    disp('--------------------------------------');
+                                end
                             end
                         end
                     end
