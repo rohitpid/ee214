@@ -149,7 +149,7 @@ reference "tab:Specifications."
  the MOSFET area, and lowering capacitance increases our 3dB bandwidth.
  To simplify the NMOS-Bias circuit dimension calculations, we set the overdrive
  voltage of the NMOS-Bias circuit to 1V.
- This required 1.5V output from our bias generator circuit.
+ As a result, we had to design our bias generator circuit to output 1.5V.
  
 \end_layout
 
@@ -165,8 +165,8 @@ reference "fig:Core-Circuit-Flow"
  We found that the circuit divided into 4 nodes (i.e.
  time constants) -- two nodes between stages and nodes at the input and
  output.
- Further, we found that the input and output time constants could be analyzed
- as functions of just two free parameters each: 
+ Furthermore, we found that the input and output time constants could be
+ analyzed as functions of just two free parameters each: 
 \begin_inset Formula $V_{OV}$
 \end_inset
 
