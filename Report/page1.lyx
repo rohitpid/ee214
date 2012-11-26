@@ -25,11 +25,12 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement h
 \paperfontsize default
 \spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -44,6 +45,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -90,16 +95,62 @@ Design Outline
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 From the specifications, Simplifying assumptions - Common mode output voltage
  requirement
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Tau equations
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Six free parameters
+\end_layout
+
+\begin_layout Plain Layout
+Common gate is to buffer input, Common gain to buffer output etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Our project was to design a three stage amplifier as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Schematic"
+
+\end_inset
+
+ that met the specifications listed in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Specifications."
+
+\end_inset
+
+.
+ A common gate stage is used to buffer the input, the common source stage
+ amplifies the signal and the common drain stage buffers the output.
+ Additionally, we had to design a bias voltage generator and a bias current
+ generator circuit to power the core circuit.
+ We first designed the core circuit assuming ideal current sources and then
+ we designed the biasing circuits to supply the current we needed at each
+ stage of the amplifier.
+ Our overall design flow is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Overall-Design-flow."
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -109,12 +160,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename CoreCircuitFlow.eps
+	filename ProjectOutline.eps
+	width 3.5in
 
 \end_inset
 
@@ -122,7 +171,150 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Design Process Flowchart.
+Overall Design flow.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Overall-Design-flow."
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to simplify our design of the bias current generator circuit, we
+ set the overvoltage of the bias current generator mosfets to 1V.
+ This meant that we needed to create a bias voltage of 1.5V from our voltage
+ generator circuit.
+\end_layout
+
+\begin_layout Standard
+Our design flow for the core circuit is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Core-Circuit-Flow"
+
+\end_inset
+
+.
+ We first started with fixed technology parameters and specifications.
+ Then we made some design choices such as fixing the channel length of all
+ mosfets in the core circuit to 
+\begin_inset Formula $1\mu m$
+\end_inset
+
+.
+ We then split the circuit into 4 nodes and found equations for the time
+ constant 
+\begin_inset Formula $\tau$
+\end_inset
+
+ at each node.
+ We combined 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+the time constants in the middle of the circuit to simplify our analysis
+ and we swept 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{OV1}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{V2}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV2}$
+\end_inset
+
+.
+ From sweeping these parameters, we determined other circuit parameters
+ such as the 
+\begin_inset Formula $g_{m}$
+\end_inset
+
+ and the 
+\begin_inset Formula $w$
+\end_inset
+
+ for each stage and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OVL2}$
+\end_inset
+
+.
+ Using these parameters, we found
+\begin_inset Formula $\tau$
+\end_inset
+
+ values and gain values that met the specifications.
+ Finally, we decreased the power available to our circuit in a sweep to
+ minimize power consumption.
+ We found that the main trade offs occurred at the common drain stage for
+ 3dB bandwidth and power which was caused by the large output capacitance
+ 
+\begin_inset Formula $C_{out}$
+\end_inset
+
+ and the main trade off between power and gain occurred at the common source
+ stage.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CoreCircuitFlow.eps
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Core Circuit Design Process.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Core-Circuit-Flow"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

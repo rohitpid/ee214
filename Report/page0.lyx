@@ -286,7 +286,14 @@ Common mode output voltage
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Specifications
+Specifications.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Specifications."
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

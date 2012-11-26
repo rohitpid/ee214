@@ -114,6 +114,13 @@ status open
 
 \begin_layout Plain Layout
 Schematic of our design.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Schematic"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
