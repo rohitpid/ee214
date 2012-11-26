@@ -1072,6 +1072,63 @@ reference "tab:CapR"
 
 \begin_layout Standard
 \noindent
+From sweeping 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV1}$
+\end_inset
+
+ and picking 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ with (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau1"
+
+\end_inset
+
+), we can set:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+W_{1}=\frac{2I_{D1}L_{1}}{KP_{n}V_{OV1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g_{m1}=\frac{2I_{D1}}{V_{OV1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C_{gs1}=\frac{\tau_{1}g_{m1}-C_{in}}{1.33}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
 Where the second line follows from (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1136,6 +1193,88 @@ I_{D1}=\frac{V_{OV1}C_{in}}{2\tau_{1}-1.33\frac{4}{3}\frac{L_{1}^{2}}{\mu_{n}V_{
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+From sweeping 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+ and picking 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ with (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tau3"
+
+\end_inset
+
+), we can set:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+W_{3}=\frac{2I_{D3}L_{3}}{KP_{n}V_{OV3}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g_{m3}=\frac{2I_{D3}}{V_{OV3}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C_{gs1}=\frac{\tau_{3}1.2g_{m3}-C_{out}}{1.33}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Having picked 
+\begin_inset Formula $I_{D1}$
+\end_inset
+
+and 
+\begin_inset Formula $I_{D3}$
+\end_inset
+
+, we can set 
+\begin_inset Formula $I_{D2}=I_{tot}-I_{D1}-I_{D3}$
+\end_inset
+
+, and having set 
+\begin_inset Formula $V_{OV3}$
+\end_inset
+
+, we know that 
+\begin_inset Formula $V_{OVL2}=1-V_{OV3}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
