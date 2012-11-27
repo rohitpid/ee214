@@ -139,22 +139,29 @@ reference "tab:Specifications."
  The common gate stage buffers the input and converts the current signal
  into a voltage signal, the common source stage amplifies the voltage signal,
  and the common drain stage buffers the output.
- Additionally, we designed a current mirror circuit and bias generator circuit.
+ Additionally, we designed a current mirror circuit and bias generator circuit
+ to power the amplifier stages.
  We first designed the core circuit assuming ideal current sources and then
  designed the biasing circuits to supply the requisite current for each
  stage of the amplifier.
- To simplify the design process, we set all channel lengths to the minimum
- length.
- This helps constrain the design space and reduces capacitances by minimizing
- the MOSFET area, and lowering capacitance increases our 3dB bandwidth.
  To simplify the NMOS-Bias circuit dimension calculations, we set the overdrive
  voltage of the NMOS-Bias circuit to 1V.
  As a result, we had to design our bias generator circuit to output 1.5V.
- 
+ The bias generator circuit was modeled on the magic battery circuit discussed
+ in lecture.
 \end_layout
 
 \begin_layout Standard
-Our core circuit design flow is shown in figure 
+When designing our core circuit, we started with specifications and technology
+ parameters as inputs and then made some design decisions to simplify our
+ process by reducing the number of free parametrs.
+ One of these design choices was to set all channel lengths to the minimum
+ length.
+ This helped constrain the design space and reduced capacitances by minimizing
+ the MOSFET area.
+ An additional benefit of this choice was that lowering capacitance increased
+ our 3dB bandwidth.
+ Our core circuit design flow is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Core-Circuit-Flow"
@@ -185,15 +192,9 @@ reference "fig:Core-Circuit-Flow"
 \end_inset
 
 .
- We found a steep bandwidth-power trade off at the common drain stage due
- to the large output capacitance 
-\begin_inset Formula $C_{out}\sim\text{O(pF)}$
-\end_inset
-
- and a power-gain tradeoff at the common source stage.
- In addition, it was not sufficient to minimize time constants in stage-by-stage
- as this would leave insufficient current for the last stage analyzed, so
- we swept over 
+ It was not sufficient to minimize time constants stage-by-stage as this
+ would leave insufficient current for the last stage analyzed, so we swept
+ over 
 \begin_inset Formula $V_{OV1}$
 \end_inset
 
@@ -218,13 +219,14 @@ reference "fig:Core-Circuit-Flow"
 \end_inset
 
  simultaneously and selected instances that met specification.
- By decreasing the total power available to our circuit and rerunning our
- analysis, we minimized power consumption.
- 
+ We then scaled our power, bandwidth and gain requirements in Matlab until
+ we found the minimum power design that allowed us to meet the specifications
+ in SPICE.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -257,13 +259,51 @@ name "fig:Core-Circuit-Flow"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
+We found a steep bandwidth-power trade off at the common drain stage due
+ to the large output capacitance 
+\begin_inset Formula $C_{out}\sim\text{O(pF)}$
+\end_inset
 
+ and a power-gain tradeoff at the common source stage.
+ The common drain stage required more current and therefore power to counteract
+ the high capacitance of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C_{out}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ The common source stage was used as a voltage amplifier and the more current
+ it consumed, the bigger gain it produced.
+ To optimize for power, we leveraged the conservative estimate that ZVTC
+ provides for the 3dB bandwidth to relax the constraint on f3dB in our Matlab
+ script so that we could lower the power consumption of our final circuit.
+ We also adjusted our gain requirement until our SPICE result just met the
+ requirements while consuming the least power.
 \end_layout
 
 \end_body
