@@ -6,12 +6,12 @@ Vdd = 2.5; % in volts
 Vss = -2.5; % in Volts
 Rout = 5e3; % in ohms (really 1/2 Rout)
 Cin = 100e-15; % in fF
-f3dB_target = 80e6; %in Hz
+f3dB_target = 65e6; %in Hz
 P_totl = 1.35e-3; %in Watts
 IDtot = P_totl / (Vdd - Vss);
 Tau_total = 1/(2*pi) * 1/f3dB_target; % in seconds
 Cout = 1000e-15; %F really this is 2*Cout which is required for 1/2 circuit
-Rm = 10e3; % 20k transresistance small signal
+Rm = 20e3; % 20k transresistance small signal
 
 %%%%%%%%%%%%%%%%%%%% Technology Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Lmin = 1e-6;    % m
