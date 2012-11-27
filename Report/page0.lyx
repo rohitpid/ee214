@@ -405,7 +405,7 @@ NMOS-bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-Bias generator circuit
+Bias generator circuit*
 \end_layout
 
 \end_inset
@@ -429,6 +429,7 @@ Bias generator circuit
 
 \begin_layout Plain Layout
 Area of different parts of the circuit.
+ * Without resistor element
 \end_layout
 
 \end_inset

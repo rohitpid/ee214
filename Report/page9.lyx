@@ -81,16 +81,26 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-This was our first circuit design project so we were tripped up by things
- we had not encountered before.
- We haven't worked with differentil circuits before and we had a bug in
- our SPICE deck because we didn't connect the sources of our differential
- common source stages.
- We also found that our hand calculations were significantly off from the
- spice results.
- The hand calculations were able to get us within an order of magnitude
- of the desired values and a small amount of tweaking in spice gave us our
- final results.
+We designed and simulated a differential, three stage amplifier with bias
+ circuitry that met the specifications and minimized power.
+\end_layout
+
+\begin_layout Standard
+We learned to reduce a potentially very high dimensional problem of sizing
+ a multistage circuit to a managable, lower dimensional space using assumptions
+ about the relative scale of factors and simplifying design choices.
+ Being more familiar with the relative scales and contributions of circuit
+ parameters such as capacitances and conductances would have certainly expedited
+ the design process.
+\end_layout
+
+\begin_layout Standard
+As our first circuit design project, we were tripped up by things we had
+ not encountered before.
+ Having not worked with differential circuits before, we did not discover
+ a bug from not connecting the sources of our differential common source
+ stages in our SPICE deck for days.
+ 
 \end_layout
 
 \begin_layout Standard

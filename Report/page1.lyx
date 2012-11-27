@@ -140,7 +140,7 @@ reference "tab:Specifications."
  into a voltage signal, the common source stage amplifies the voltage signal,
  and the common drain stage buffers the output.
  Additionally, we designed a current mirror circuit and bias generator circuit
- to power the amplifier stages.
+ to power the amplifier's stages.
  We first designed the core circuit assuming ideal current sources and then
  designed the biasing circuits to supply the requisite current for each
  stage of the amplifier.
@@ -153,14 +153,11 @@ reference "tab:Specifications."
 
 \begin_layout Standard
 When designing our core circuit, we started with specifications and technology
- parameters as inputs and then made some design decisions to simplify our
- process by reducing the number of free parametrs.
- One of these design choices was to set all channel lengths to the minimum
- length.
- This helped constrain the design space and reduced capacitances by minimizing
- the MOSFET area.
- An additional benefit of this choice was that lowering capacitance increased
- our 3dB bandwidth.
+ parameters as inputs.
+ To reduce the number of free parameters we decided set all channel lengths
+ to the minimum length.
+ This also reduced capacitances by minimizing the MOSFET areas, thereby
+ increasing our 3dB bandwidth.
  Our core circuit design flow is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -173,7 +170,7 @@ reference "fig:Core-Circuit-Flow"
  time constants) -- two nodes between stages and nodes at the input and
  output.
  Furthermore, we found that the input and output time constants could be
- analyzed as functions of just two free parameters each: 
+ analyzed as functions of two free parameters each: 
 \begin_inset Formula $V_{OV}$
 \end_inset
 
@@ -298,7 +295,7 @@ We found a steep bandwidth-power trade off at the common drain stage due
 \noun default
 \color inherit
  The common source stage was used as a voltage amplifier and the more current
- it consumed, the bigger gain it produced.
+ it consumed, the higher its gain.
  To optimize for power, we leveraged the conservative estimate that ZVTC
  provides for the 3dB bandwidth to relax the constraint on f3dB in our Matlab
  script so that we could lower the power consumption of our final circuit.

@@ -335,14 +335,14 @@ reference "eq:tau3"
 \begin_inset Formula $V_{OV2}$
 \end_inset
 
-, so we consider their sum (see Figure 
+, so we consider their sum in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:tau23"
 
 \end_inset
 
-).
+.
  From 
 \begin_inset Formula $V_{OV2}$
 \end_inset
@@ -364,6 +364,13 @@ W_{L1} & = & \frac{2I_{D1}L_{L1}}{KP_{p}V_{OVL1}^{2}}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+A minimum power circuit can then be found by incrementally decreasing our
+ total power (hence current) and shrinking our solution space until finding
+ an optimal power circuit.
 \end_layout
 
 \begin_layout Standard
@@ -405,17 +412,17 @@ name "fig:tau14"
 \begin_inset Formula $\tau_{1}$
 \end_inset
 
- and
+ and 
 \begin_inset Formula $\tau_{4}$
 \end_inset
 
  take on the same form and both are minimized by maximixing current and
  minimizing overdrive voltage.
- Note that a large 
+ We require a large 
 \begin_inset Formula $I_{D3}$
 \end_inset
 
- is required to compensate for the large 
+ to compensate for the large 
 \begin_inset Formula $C_{out}$
 \end_inset
 
@@ -431,6 +438,39 @@ name "fig:tau14"
 
  and 
 \begin_inset Formula $0.5V$
+\end_inset
+
+.
+ Although we could pick 
+\begin_inset Formula $I_{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{OV}$
+\end_inset
+
+ to minimize 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{4}$
+\end_inset
+
+, this would not yield a globally optimal solution as 
+\begin_inset Formula $\tau_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{3}$
+\end_inset
+
+ are dependent parameters set in picking 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{4}$
 \end_inset
 
 .
@@ -479,12 +519,12 @@ name "fig:tau23"
 \begin_inset Formula $\tau_{2}+\tau_{3}$
 \end_inset
 
- shows a convex shape that increases with 
+ is a convex surface that increases monotonically with 
 \begin_inset Formula $A_{v2}$
 \end_inset
 
 .
- In addition, as 
+ As 
 \begin_inset Formula $A_{v2}$
 \end_inset
 
@@ -510,17 +550,30 @@ SPICE Results and Comparison with Hand Calculations
 \end_layout
 
 \begin_layout Standard
-When we calculated gain, f3dB bandwidth and power consumption by hand, we
- knew that our f3dB would be lower than the SPICE result because ZVTC provides
- a conservative approximation of f3dB.
- We also know that our gain calculations by hand will be 
-\end_layout
+Comparisons between hand calculated values and SPICE results are listed
+ in Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Gain,-f3dB-Power"
 
-\begin_layout Standard
-To trade f3dB for gain, we increased current on the second stage to increase
- gain and decreased current on the third stage to save power.
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HandVSpiceParameters"
+
+\end_inset
+
+.
+ When we calculated gain, 3dB bandwidth and power consumption by hand, we
+ knew that our 3dB bandwidth would be lower than the SPICE result because
+ ZVTC provides a conservative approximation of 3dB.
+ Therefore, we relaxed the 3dB bandwidth requirement to trade 3dB bandwidth
+ for gain and power.
  This accounts for the discrepencies between our hand calculations and our
- final spice width.
+ final spice bandwidth.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -532,7 +585,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="4">
+<lyxtabular version="3" rows="4" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
@@ -612,7 +665,7 @@ Hand
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.7
+1.45
 \end_layout
 
 \end_inset
@@ -623,45 +676,7 @@ Hand
 \begin_inset Text
 
 \begin_layout Plain Layout
-SPICE(Hand)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-10.1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-105.5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1.67
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-SPICE(final)
+SPICE
 \end_layout
 
 \end_inset
@@ -695,49 +710,11 @@ SPICE(final)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-% Difference hand and SPICE(hand)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-54
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--31.66
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-38.14
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-%Difference hand and SPICE(final)
+%Difference hand and SPICE
 \end_layout
 
 \end_inset
@@ -764,7 +741,7 @@ SPICE(final)
 \begin_inset Text
 
 \begin_layout Plain Layout
-42
+21.5
 \end_layout
 
 \end_inset
@@ -781,7 +758,8 @@ SPICE(final)
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Gain, f3dB and Power comparison between hand calculations and SPICE.
+Gain, 3dB bandwidth, and power comparison between hand calculations and
+ SPICE.
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Gain,-f3dB-Power"
@@ -1000,7 +978,7 @@ Mosfet
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $g_{m}(\mu S)$
+\begin_inset Formula $g_{m}$
 \end_inset
 
 
@@ -1012,7 +990,7 @@ Mosfet
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $I_{D}(\mu A)$
+\begin_inset Formula $I_{D}$
 \end_inset
 
 
@@ -1024,7 +1002,7 @@ Mosfet
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $V_{OV}(V)$
+\begin_inset Formula $V_{OV}$
 \end_inset
 
 
@@ -1056,7 +1034,7 @@ M1
 \begin_inset Text
 
 \begin_layout Plain Layout
-71.2
+35.6
 \end_layout
 
 \end_inset
@@ -1110,7 +1088,7 @@ M1
 \begin_inset Text
 
 \begin_layout Plain Layout
-58.8
+13.7
 \end_layout
 
 \end_inset
@@ -1148,7 +1126,7 @@ M2
 \begin_inset Text
 
 \begin_layout Plain Layout
-64
+32
 \end_layout
 
 \end_inset
@@ -1202,7 +1180,7 @@ M2
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.2
+0.6
 \end_layout
 
 \end_inset
@@ -1240,7 +1218,7 @@ M3
 \begin_inset Text
 
 \begin_layout Plain Layout
-134.8
+77.6
 \end_layout
 
 \end_inset
@@ -1294,7 +1272,7 @@ M3
 \begin_inset Text
 
 \begin_layout Plain Layout
-39.4
+-5.3
 \end_layout
 
 \end_inset
@@ -1332,7 +1310,7 @@ ML1
 \begin_inset Text
 
 \begin_layout Plain Layout
--71.2
+-35.2
 \end_layout
 
 \end_inset
@@ -1386,7 +1364,7 @@ ML1
 \begin_inset Text
 
 \begin_layout Plain Layout
-56.8
+13.7
 \end_layout
 
 \end_inset
@@ -1424,7 +1402,7 @@ ML2
 \begin_inset Text
 
 \begin_layout Plain Layout
--64
+-32
 \end_layout
 
 \end_inset
@@ -1478,7 +1456,7 @@ ML2
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.2
+0.6
 \end_layout
 
 \end_inset
@@ -1516,7 +1494,7 @@ Mbias1
 \begin_inset Text
 
 \begin_layout Plain Layout
-71.2
+35.6
 \end_layout
 
 \end_inset
@@ -1570,7 +1548,7 @@ Mbias1
 \begin_inset Text
 
 \begin_layout Plain Layout
-56.8
+13.7
 \end_layout
 
 \end_inset
@@ -1608,7 +1586,7 @@ Mbias2
 \begin_inset Text
 
 \begin_layout Plain Layout
-64
+32
 \end_layout
 
 \end_inset
@@ -1662,7 +1640,7 @@ Mbias2
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.2
+0.6
 \end_layout
 
 \end_inset
@@ -1700,7 +1678,7 @@ Mbias3
 \begin_inset Text
 
 \begin_layout Plain Layout
-134.8
+77.6
 \end_layout
 
 \end_inset
@@ -1754,7 +1732,7 @@ Mbias3
 \begin_inset Text
 
 \begin_layout Plain Layout
-39.4
+-5.3
 \end_layout
 
 \end_inset
@@ -1777,7 +1755,14 @@ Mbias3
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Hand calculations vs SPICE simulation results of mosfet parameters.
+Hand calculations vs SPICE simulation results of MOSFET parameters.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HandVSpiceParameters"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1857,7 +1842,7 @@ From project specifications we have the constraint that
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-I_{bias}=\frac{(V_{B}-V_{t})^{2}(\frac{W_{min}}{L}\cdot KP)}{2\cdot(k+1)}
+I_{bias}=\frac{(V_{B}-V_{t})^{2}(\frac{kW_{min}}{L}\cdot KP)}{2\cdot(k+1)}
 \end{equation}
 
 \end_inset
@@ -1866,19 +1851,15 @@ I_{bias}=\frac{(V_{B}-V_{t})^{2}(\frac{W_{min}}{L}\cdot KP)}{2\cdot(k+1)}
 \end_layout
 
 \begin_layout Standard
-According to this equation we can see that 
-\begin_inset Formula $I_{bias}$
+From this equation, power is minimized if we pick k=1 because 
+\begin_inset Formula $\frac{k}{2\cdot(k+1)}=\frac{1}{4}$
 \end_inset
 
-is minimized if we pick k=1 because the scaling factor for the rest of the
- terms is 
-\begin_inset Formula $\frac{1}{4}$
+ wheras if k increases 
+\begin_inset Formula $\frac{k}{2\cdot(k+1)}=\frac{1}{2}$
 \end_inset
 
-whereas if we pick a large k, the scaling factor in the limit becomes 
-\begin_inset Formula $\frac{1}{2}.$
-\end_inset
-
+.
  In our design, we chose to create an overvoltage of 1V so we needed to
  produce a target bias voltage 
 \begin_inset Formula $V_{B}$
@@ -1910,41 +1891,6 @@ R_{B}=\frac{V_{DD}-V_{ss}-V_{bias}}{I_{bias}}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Hand calculations vs SPICE simulation results of mosfet parameters.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
-Power Calculations
 \end_layout
 
 \end_body
